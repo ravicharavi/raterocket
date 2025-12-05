@@ -196,6 +196,8 @@ export default function MortgagePage() {
               <h1 className="text-2xl font-bold text-purple-400">RateRocket</h1>
             </Link>
             <div className="flex gap-4">
+              <Link href="/ontario-map" className="text-purple-200 hover:text-purple-400">Auto Map</Link>
+              <Link href="/insuramap" className="text-purple-200 hover:text-purple-400">Home Map</Link>
               <Link href="/" className="text-purple-200 hover:text-purple-400">Home</Link>
             </div>
           </div>

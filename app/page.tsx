@@ -22,6 +22,7 @@ export default function Home() {
             <div className="hidden md:flex space-x-8">
               <a href="#how-it-works" className="text-purple-200 hover:text-purple-400 transition">How It Works</a>
               <a href="#benefits" className="text-purple-200 hover:text-purple-400 transition">Benefits</a>
+              <Link href="/mortgage" className="text-purple-200 hover:text-purple-400 transition">Mortgage</Link>
               <Link href="/ontario-map" className="text-purple-200 hover:text-purple-400 transition">Auto Map</Link>
               <Link href="/insuramap" className="text-purple-200 hover:text-purple-400 transition">InsuraMap 2.0</Link>
               <a href="#faq" className="text-purple-200 hover:text-purple-400 transition">FAQ</a>
@@ -42,13 +43,10 @@ export default function Home() {
             Launch Into
             <span className="bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent"> Savings</span>
           </h1>
-          <p className="text-xl text-purple-200 mb-4 max-w-3xl mx-auto">
+          <p className="text-xl text-purple-200 mb-8 max-w-3xl mx-auto">
             Compare car and home insurance quotes from top Canadian providers. 
             Bundle and save with RateRocket - your trusted insurance comparison platform.
           </p>
-          <div className="mb-8">
-            <DeploymentTimestamp />
-          </div>
           <div className="flex justify-center gap-2 text-2xl mb-8">
             <span className="animate-bounce">🚀</span>
             <span className="animate-bounce" style={{ animationDelay: '0.1s' }}>⭐</span>
@@ -355,6 +353,9 @@ export default function Home() {
       {/* Footer */}
       <footer className="bg-slate-950/90 backdrop-blur-md border-t border-purple-500/20 text-white py-12 relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="mb-6 text-center">
+            <DeploymentTimestamp className="text-purple-300 text-sm" />
+          </div>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div>
               <div className="flex items-center gap-2 mb-4">
