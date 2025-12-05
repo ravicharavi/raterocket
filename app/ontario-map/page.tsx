@@ -122,11 +122,13 @@ export default function OntarioMapPage() {
     setPanY(0)
   }
 
+  const backgroundStyle = {
+    background: 'linear-gradient(to bottom, rgb(15, 23, 42), rgb(30, 41, 59), rgb(15, 23, 42))',
+    backgroundAttachment: 'fixed' as const,
+  }
+
   return (
-    <div className="min-h-screen relative" style={{
-      background: 'linear-gradient(to bottom, rgb(15, 23, 42), rgb(30, 41, 59), rgb(15, 23, 42))',
-      backgroundAttachment: 'fixed',
-    }}>
+    <div className="min-h-screen relative" style={backgroundStyle}>
       {/* Floating Planets Background */}
       <div 
         className="absolute top-20 right-10 w-96 h-96 opacity-30"
@@ -135,7 +137,7 @@ export default function OntarioMapPage() {
           borderRadius: '50%',
           filter: 'blur(40px)',
         }}
-      ></div>
+      />
       <div 
         className="absolute bottom-40 left-20 w-64 h-64 opacity-20"
         style={{
@@ -143,7 +145,7 @@ export default function OntarioMapPage() {
           borderRadius: '50%',
           filter: 'blur(40px)',
         }}
-      ></div>
+      />
 
       {/* Navigation */}
       <nav className="bg-slate-900/80 backdrop-blur-md border-b border-purple-500/20 shadow-lg sticky top-0 z-50">
