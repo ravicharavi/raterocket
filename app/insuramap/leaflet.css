@@ -1,0 +1,14 @@
+/* Fix for Leaflet default marker icon issue */
+.leaflet-container {
+  background: #1e293b;
+}
+
+.leaflet-popup-content-wrapper {
+  background: white;
+  border-radius: 8px;
+}
+
+.custom-marker {
+  background: transparent !important;
+  border: none !important;
+}
