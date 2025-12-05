@@ -25,6 +25,7 @@ export default function Home() {
               <Link href="/mortgage" className="text-purple-200 hover:text-purple-400 transition">Mortgage</Link>
               <Link href="/ontario-map" className="text-purple-200 hover:text-purple-400 transition">Auto Map</Link>
               <Link href="/insuramap" className="text-purple-200 hover:text-purple-400 transition">InsuraMap 2.0</Link>
+              <Link href="/account" className="text-purple-200 hover:text-purple-400 transition">My Account</Link>
               <a href="#faq" className="text-purple-200 hover:text-purple-400 transition">FAQ</a>
             </div>
           </div>

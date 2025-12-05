@@ -316,17 +316,26 @@ export default function CompareQuotesPage() {
                 </ul>
               </div>
 
-              {/* CTA Button */}
-              <button
-                onClick={() => handleSelectQuote(quote.id)}
-                className={`w-full py-3 rounded-lg font-semibold transition ${
-                  index === 0
-                    ? 'bg-green-600 text-white hover:bg-green-700 shadow-lg'
-                    : 'bg-blue-600 text-white hover:bg-blue-700'
-                }`}
-              >
-                {index === 0 ? 'Select Best Deal' : 'Select This Quote'}
-              </button>
+              {/* CTA Buttons */}
+              <div className="flex gap-2">
+                <button
+                  onClick={() => handleSelectQuote(quote.id)}
+                  className={`flex-1 py-3 rounded-lg font-semibold transition ${
+                    index === 0
+                      ? 'bg-green-600 text-white hover:bg-green-700 shadow-lg'
+                      : 'bg-blue-600 text-white hover:bg-blue-700'
+                  }`}
+                >
+                  {index === 0 ? 'Select Best Deal' : 'Select This Quote'}
+                </button>
+                <button
+                  onClick={() => handleSaveQuote(quote)}
+                  className="bg-purple-600 hover:bg-purple-500 text-white px-4 py-3 rounded-lg font-semibold transition"
+                  title="Save quote"
+                >
+                  💾
+                </button>
+              </div>
             </div>
           ))}
         </div>
@@ -411,6 +420,45 @@ export default function CompareQuotesPage() {
           </Link>
         </div>
       </div>
+
+      {/* Save Quote Modal */}
+      {showSaveModal && quoteToSave && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-xl p-8 max-w-md w-full border-2 border-purple-500 shadow-2xl">
+            <h3 className="text-2xl font-bold text-gray-900 mb-4">Save Quote</h3>
+            <p className="text-gray-600 mb-6">
+              Save this quote from <strong className="text-gray-900">{quoteToSave.provider}</strong> to your account?
+            </p>
+            <div className="bg-gray-50 rounded-lg p-4 mb-6">
+              <div className="flex justify-between mb-2">
+                <span className="text-gray-600">Monthly:</span>
+                <span className="text-gray-900 font-semibold">${quoteToSave.monthlyPremium.toLocaleString()}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-gray-600">Annual:</span>
+                <span className="text-gray-900 font-semibold">${quoteToSave.annualPremium.toLocaleString()}</span>
+              </div>
+            </div>
+            <div className="flex gap-3">
+              <button
+                onClick={confirmSaveQuote}
+                className="flex-1 bg-purple-600 hover:bg-purple-500 text-white px-4 py-2 rounded-lg font-semibold transition"
+              >
+                Save Quote
+              </button>
+              <button
+                onClick={() => {
+                  setShowSaveModal(false)
+                  setQuoteToSave(null)
+                }}
+                className="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-2 rounded-lg font-semibold transition"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
