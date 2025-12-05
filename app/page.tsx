@@ -139,6 +139,70 @@ export default function Home() {
                 <div className="text-4xl">🌌</div>
               </div>
             </div>
+
+            {/* Secondary Products Section */}
+            <div className="mt-12 pt-8 border-t border-purple-500/30">
+              <div className="text-center mb-6">
+                <h3 className="text-2xl md:text-3xl font-bold text-white mb-2">
+                  Explore More Products
+                </h3>
+                <p className="text-purple-200 text-sm">
+                  Additional financial products to help you save and protect what matters most
+                </p>
+              </div>
+              
+              <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+                {/* Mortgage */}
+                <Link 
+                  href="/quote/personal-info?type=mortgage"
+                  className="group bg-slate-800/60 border border-purple-500/30 rounded-lg p-4 hover:border-purple-400 hover:bg-slate-800/80 transition-all duration-300 backdrop-blur-sm text-center"
+                >
+                  <div className="text-3xl mb-2">🏠</div>
+                  <h4 className="text-sm font-semibold text-white mb-1">Mortgage</h4>
+                  <p className="text-xs text-purple-300">Compare rates</p>
+                </Link>
+
+                {/* Credit Card */}
+                <Link 
+                  href="/quote/personal-info?type=credit-card"
+                  className="group bg-slate-800/60 border border-purple-500/30 rounded-lg p-4 hover:border-purple-400 hover:bg-slate-800/80 transition-all duration-300 backdrop-blur-sm text-center"
+                >
+                  <div className="text-3xl mb-2">💳</div>
+                  <h4 className="text-sm font-semibold text-white mb-1">Credit Card</h4>
+                  <p className="text-xs text-purple-300">Find the best card</p>
+                </Link>
+
+                {/* Business Insurance */}
+                <Link 
+                  href="/quote/personal-info?type=business"
+                  className="group bg-slate-800/60 border border-purple-500/30 rounded-lg p-4 hover:border-purple-400 hover:bg-slate-800/80 transition-all duration-300 backdrop-blur-sm text-center"
+                >
+                  <div className="text-3xl mb-2">🏢</div>
+                  <h4 className="text-sm font-semibold text-white mb-1">Business</h4>
+                  <p className="text-xs text-purple-300">Protect your business</p>
+                </Link>
+
+                {/* Travel Insurance */}
+                <Link 
+                  href="/quote/personal-info?type=travel"
+                  className="group bg-slate-800/60 border border-purple-500/30 rounded-lg p-4 hover:border-purple-400 hover:bg-slate-800/80 transition-all duration-300 backdrop-blur-sm text-center"
+                >
+                  <div className="text-3xl mb-2">✈️</div>
+                  <h4 className="text-sm font-semibold text-white mb-1">Travel</h4>
+                  <p className="text-xs text-purple-300">Travel with peace</p>
+                </Link>
+
+                {/* Life Insurance */}
+                <Link 
+                  href="/quote/personal-info?type=life"
+                  className="group bg-slate-800/60 border border-purple-500/30 rounded-lg p-4 hover:border-purple-400 hover:bg-slate-800/80 transition-all duration-300 backdrop-blur-sm text-center"
+                >
+                  <div className="text-3xl mb-2">🛡️</div>
+                  <h4 className="text-sm font-semibold text-white mb-1">Life</h4>
+                  <p className="text-xs text-purple-300">Protect your family</p>
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
 
