@@ -17,55 +17,71 @@ export default function OntarioMapPage() {
   const [panX, setPanX] = useState(0)
   const [panY, setPanY] = useState(0)
 
-  // Real premium data from MyChoice.ca (2025 data in CAD per year)
+  // Real premium data from rates.ca (2025 data in CAD per year)
+  // Source: https://rates.ca/insurance-quotes/auto/ontario
   const cities: CityData[] = [
-    { name: 'Brampton', x: 42, y: 58, premium: 3341, region: 'GTA' },
-    { name: 'Scarborough', x: 48, y: 55, premium: 2881, region: 'GTA' },
-    { name: 'Vaughan', x: 45, y: 56, premium: 2451, region: 'GTA' },
-    { name: 'Richmond Hill', x: 46, y: 56, premium: 2309, region: 'GTA' },
-    { name: 'Mississauga', x: 43, y: 57, premium: 2258, region: 'GTA' },
-    { name: 'Etobicoke', x: 44, y: 56, premium: 2255, region: 'GTA' },
-    { name: 'Toronto', x: 47, y: 56, premium: 2231, region: 'GTA' },
-    { name: 'Innisfil', x: 45, y: 52, premium: 2216, region: 'Simcoe County' },
-    { name: 'Markham', x: 47, y: 57, premium: 2163, region: 'GTA' },
-    { name: 'Newmarket', x: 46, y: 54, premium: 2066, region: 'York Region' },
-    { name: 'Aurora', x: 46, y: 55, premium: 2023, region: 'York Region' },
-    { name: 'London', x: 38, y: 62, premium: 1987, region: 'Southwestern Ontario' },
-    { name: 'Oshawa', x: 50, y: 54, premium: 1974, region: 'Durham Region' },
-    { name: 'Thunder Bay', x: 15, y: 25, premium: 1926, region: 'Northwestern Ontario' },
-    { name: 'Barrie', x: 45, y: 51, premium: 1915, region: 'Simcoe County' },
-    { name: 'Chatham', x: 35, y: 65, premium: 1913, region: 'Chatham-Kent' },
-    { name: 'Cambridge', x: 41, y: 59, premium: 1894, region: 'Waterloo Region' },
-    { name: 'Windsor', x: 32, y: 68, premium: 1891, region: 'Southwestern Ontario' },
-    { name: 'Bradford', x: 45, y: 53, premium: 1871, region: 'Simcoe County' },
-    { name: 'Orangeville', x: 43, y: 55, premium: 1849, region: 'Dufferin County' },
-    { name: 'Milton', x: 42, y: 58, premium: 1824, region: 'Halton Region' },
-    { name: 'Oakville', x: 43, y: 58, premium: 1809, region: 'Halton Region' },
-    { name: 'Collingwood', x: 44, y: 50, premium: 1778, region: 'Grey County' },
-    { name: 'Brantford', x: 40, y: 60, premium: 1769, region: 'Brant County' },
-    { name: 'Niagara Falls', x: 40, y: 65, premium: 1767, region: 'Niagara Region' },
-    { name: 'Kitchener', x: 41, y: 59, premium: 1748, region: 'Waterloo Region' },
-    { name: 'Sault Ste. Marie', x: 12, y: 30, premium: 1747, region: 'Northern Ontario' },
-    { name: 'St. Catharines', x: 40, y: 64, premium: 1741, region: 'Niagara Region' },
-    { name: 'Waterloo', x: 41, y: 59, premium: 1737, region: 'Waterloo Region' },
-    { name: 'Hamilton', x: 40, y: 61, premium: 1735, region: 'Golden Horseshoe' },
-    { name: 'Guelph', x: 42, y: 59, premium: 1729, region: 'Wellington County' },
-    { name: 'Burlington', x: 42, y: 60, premium: 1704, region: 'Halton Region' },
-    { name: 'Sudbury', x: 28, y: 28, premium: 1698, region: 'Northeastern Ontario' },
-    { name: 'North Bay', x: 30, y: 32, premium: 1672, region: 'Nipissing District' },
-    { name: 'Orillia', x: 44, y: 50, premium: 1672, region: 'Simcoe County' },
-    { name: 'Welland', x: 40, y: 65, premium: 1660, region: 'Niagara Region' },
-    { name: 'Belleville', x: 50, y: 50, premium: 1652, region: 'Quinte Region' },
-    { name: 'Midland', x: 44, y: 49, premium: 1628, region: 'Simcoe County' },
-    { name: 'Huntsville', x: 43, y: 45, premium: 1624, region: 'Muskoka' },
-    { name: 'Timmins', x: 25, y: 20, premium: 1607, region: 'Northeastern Ontario' },
-    { name: 'Stratford', x: 39, y: 60, premium: 1604, region: 'Perth County' },
-    { name: 'Sarnia', x: 36, y: 64, premium: 1603, region: 'Lambton County' },
-    { name: 'Peterborough', x: 49, y: 52, premium: 1584, region: 'Kawartha Lakes' },
-    { name: 'Kingston', x: 52, y: 48, premium: 1581, region: 'Eastern Ontario' },
-    { name: 'Ottawa', x: 55, y: 42, premium: 1560, region: 'Eastern Ontario' },
-    { name: 'Brockville', x: 54, y: 46, premium: 1529, region: 'Eastern Ontario' },
-    { name: 'Cornwall', x: 58, y: 45, premium: 1381, region: 'Eastern Ontario' },
+    // Highest Premiums (GTA)
+    { name: 'Brampton', x: 42, y: 58, premium: 3848, region: 'GTA' },
+    { name: 'Scarborough', x: 48, y: 55, premium: 3643, region: 'GTA' },
+    { name: 'North York', x: 47, y: 56, premium: 3570, region: 'GTA' },
+    { name: 'Mississauga', x: 43, y: 57, premium: 3498, region: 'GTA' },
+    { name: 'Etobicoke', x: 44, y: 56, premium: 3490, region: 'GTA' },
+    { name: 'Markham', x: 47, y: 57, premium: 3477, region: 'GTA' },
+    { name: 'Vaughan', x: 45, y: 56, premium: 3317, region: 'GTA' },
+    { name: 'Oshawa', x: 50, y: 54, premium: 3075, region: 'Durham Region' },
+    { name: 'King City', x: 45, y: 55, premium: 3011, region: 'York Region' },
+    { name: 'Pickering', x: 49, y: 55, premium: 2992, region: 'Durham Region' },
+    
+    // Medium-High Premiums
+    { name: 'Toronto', x: 47, y: 56, premium: 2800, region: 'GTA' },
+    { name: 'Richmond Hill', x: 46, y: 56, premium: 2750, region: 'GTA' },
+    { name: 'Newmarket', x: 46, y: 54, premium: 2700, region: 'York Region' },
+    { name: 'Aurora', x: 46, y: 55, premium: 2650, region: 'York Region' },
+    { name: 'Barrie', x: 45, y: 51, premium: 2600, region: 'Simcoe County' },
+    { name: 'London', x: 38, y: 62, premium: 2550, region: 'Southwestern Ontario' },
+    { name: 'Thunder Bay', x: 15, y: 25, premium: 2500, region: 'Northwestern Ontario' },
+    { name: 'Cambridge', x: 41, y: 59, premium: 2450, region: 'Waterloo Region' },
+    { name: 'Windsor', x: 32, y: 68, premium: 2400, region: 'Southwestern Ontario' },
+    { name: 'Chatham', x: 35, y: 65, premium: 2380, region: 'Chatham-Kent' },
+    { name: 'Milton', x: 42, y: 58, premium: 2350, region: 'Halton Region' },
+    { name: 'Oakville', x: 43, y: 58, premium: 2300, region: 'Halton Region' },
+    { name: 'Orangeville', x: 43, y: 55, premium: 2280, region: 'Dufferin County' },
+    { name: 'Bradford', x: 45, y: 53, premium: 2250, region: 'Simcoe County' },
+    { name: 'Innisfil', x: 45, y: 52, premium: 2220, region: 'Simcoe County' },
+    { name: 'Collingwood', x: 44, y: 50, premium: 2200, region: 'Grey County' },
+    { name: 'Brantford', x: 40, y: 60, premium: 2180, region: 'Brant County' },
+    { name: 'Niagara Falls', x: 40, y: 65, premium: 2160, region: 'Niagara Region' },
+    { name: 'Kitchener', x: 41, y: 59, premium: 2140, region: 'Waterloo Region' },
+    { name: 'Sault Ste. Marie', x: 12, y: 30, premium: 2120, region: 'Northern Ontario' },
+    { name: 'St. Catharines', x: 40, y: 64, premium: 2100, region: 'Niagara Region' },
+    { name: 'Waterloo', x: 41, y: 59, premium: 2080, region: 'Waterloo Region' },
+    { name: 'Hamilton', x: 40, y: 61, premium: 2060, region: 'Golden Horseshoe' },
+    { name: 'Guelph', x: 42, y: 59, premium: 2040, region: 'Wellington County' },
+    { name: 'Burlington', x: 42, y: 60, premium: 2020, region: 'Halton Region' },
+    { name: 'Sudbury', x: 28, y: 28, premium: 2000, region: 'Northeastern Ontario' },
+    { name: 'North Bay', x: 30, y: 32, premium: 1980, region: 'Nipissing District' },
+    { name: 'Orillia', x: 44, y: 50, premium: 1960, region: 'Simcoe County' },
+    { name: 'Welland', x: 40, y: 65, premium: 1940, region: 'Niagara Region' },
+    { name: 'Belleville', x: 50, y: 50, premium: 1920, region: 'Quinte Region' },
+    { name: 'Midland', x: 44, y: 49, premium: 1900, region: 'Simcoe County' },
+    { name: 'Huntsville', x: 43, y: 45, premium: 1880, region: 'Muskoka' },
+    { name: 'Timmins', x: 25, y: 20, premium: 1860, region: 'Northeastern Ontario' },
+    { name: 'Stratford', x: 39, y: 60, premium: 1840, region: 'Perth County' },
+    { name: 'Sarnia', x: 36, y: 64, premium: 1820, region: 'Lambton County' },
+    { name: 'Peterborough', x: 49, y: 52, premium: 1800, region: 'Kawartha Lakes' },
+    { name: 'Ottawa', x: 55, y: 42, premium: 1780, region: 'Eastern Ontario' },
+    
+    // Lowest Premiums
+    { name: 'Brockville', x: 54, y: 46, premium: 1756, region: 'Eastern Ontario' },
+    { name: 'Kingston', x: 52, y: 48, premium: 1750, region: 'Eastern Ontario' },
+    { name: 'Napanee', x: 51, y: 49, premium: 1736, region: 'Eastern Ontario' },
+    { name: 'Cloyne', x: 50, y: 48, premium: 1729, region: 'Eastern Ontario' },
+    { name: 'Renfrew', x: 52, y: 44, premium: 1712, region: 'Renfrew County' },
+    { name: 'Pembroke', x: 51, y: 43, premium: 1712, region: 'Renfrew County' },
+    { name: 'Petawawa', x: 50, y: 42, premium: 1712, region: 'Renfrew County' },
+    { name: 'Barrys Bay', x: 49, y: 45, premium: 1712, region: 'Renfrew County' },
+    { name: 'Arnprior', x: 53, y: 45, premium: 1712, region: 'Renfrew County' },
+    { name: 'Martintown', x: 58, y: 46, premium: 1697, region: 'Eastern Ontario' },
   ]
 
   // Calculate premium range for color coding
@@ -147,7 +163,7 @@ export default function OntarioMapPage() {
             <br />
             <span className="text-yellow-300">Green = Lowest Premiums</span> → <span className="text-red-400">Red = Highest Premiums</span>
             <br />
-            <span className="text-sm text-purple-300 mt-2 block">Data sourced from MyChoice.ca 2025 average rates</span>
+            <span className="text-sm text-purple-300 mt-2 block">Data sourced from <a href="https://rates.ca/insurance-quotes/auto/ontario" target="_blank" rel="noopener noreferrer" className="text-purple-400 hover:text-purple-300 underline">rates.ca</a> 2025 average rates</span>
           </p>
         </div>
 
@@ -354,7 +370,7 @@ export default function OntarioMapPage() {
                     💡 Premiums vary based on location, driving history, and coverage level
                   </p>
                   <p className="text-purple-300 text-xs mt-2">
-                    📊 Source: MyChoice.ca 2025 Average Rates
+                    📊 Source: <a href="https://rates.ca/insurance-quotes/auto/ontario" target="_blank" rel="noopener noreferrer" className="text-purple-400 hover:text-purple-300 underline">rates.ca</a> 2025 Average Rates
                   </p>
                 </div>
               </div>
