@@ -163,7 +163,18 @@ export default function OntarioMapPage() {
             <br />
             <span className="text-yellow-300">Green = Lowest Premiums</span> → <span className="text-red-400">Red = Highest Premiums</span>
             <br />
-            <span className="text-sm text-purple-300 mt-2 block">Data sourced from <a href="https://rates.ca/insurance-quotes/auto/ontario" target="_blank" rel="noopener noreferrer" className="text-purple-400 hover:text-purple-300 underline">rates.ca</a> 2025 average rates</span>
+            <span className="text-sm text-purple-300 mt-2 block">
+              Data sourced from{' '}
+              <a 
+                href="https://rates.ca/insurance-quotes/auto/ontario" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="text-purple-400 hover:text-purple-300 underline"
+              >
+                rates.ca
+              </a>{' '}
+              2025 average rates
+            </span>
           </p>
         </div>
 
@@ -323,12 +334,14 @@ export default function OntarioMapPage() {
                 })}
                 
                 {/* Add CSS animation for pulse */}
-                <style>{`
-                  @keyframes pulse {
-                    0%, 100% { opacity: 0.6; transform: scale(1); }
-                    50% { opacity: 1; transform: scale(1.2); }
-                  }
-                `}</style>
+                <defs>
+                  <style>{`
+                    @keyframes pulse {
+                      0%, 100% { opacity: 0.6; transform: scale(1); }
+                      50% { opacity: 1; transform: scale(1.2); }
+                    }
+                  `}</style>
+                </defs>
               </svg>
             </div>
           </div>
@@ -370,7 +383,16 @@ export default function OntarioMapPage() {
                     💡 Premiums vary based on location, driving history, and coverage level
                   </p>
                   <p className="text-purple-300 text-xs mt-2">
-                    📊 Source: <a href="https://rates.ca/insurance-quotes/auto/ontario" target="_blank" rel="noopener noreferrer" className="text-purple-400 hover:text-purple-300 underline">rates.ca</a> 2025 Average Rates
+                    📊 Source:{' '}
+                    <a 
+                      href="https://rates.ca/insurance-quotes/auto/ontario" 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      className="text-purple-400 hover:text-purple-300 underline"
+                    >
+                      rates.ca
+                    </a>{' '}
+                    2025 Average Rates
                   </p>
                 </div>
               </div>
