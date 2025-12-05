@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+import DeploymentTimestamp from '@/components/DeploymentTimestamp'
 
 export default function InsuranceDetailsPage() {
   const router = useRouter()
@@ -97,6 +98,9 @@ export default function InsuranceDetailsPage() {
       </nav>
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="mb-4 text-right">
+          <DeploymentTimestamp className="text-gray-500 text-xs" />
+        </div>
         {/* Progress Indicator */}
         <div className="mb-8">
           <div className="flex items-center justify-between mb-4">

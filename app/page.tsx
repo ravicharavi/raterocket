@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import DeploymentTimestamp from '@/components/DeploymentTimestamp'
 
 export default function Home() {
   return (
@@ -41,10 +42,13 @@ export default function Home() {
             Launch Into
             <span className="bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent"> Savings</span>
           </h1>
-          <p className="text-xl text-purple-200 mb-8 max-w-3xl mx-auto">
+          <p className="text-xl text-purple-200 mb-4 max-w-3xl mx-auto">
             Compare car and home insurance quotes from top Canadian providers. 
             Bundle and save with RateRocket - your trusted insurance comparison platform.
           </p>
+          <div className="mb-8">
+            <DeploymentTimestamp />
+          </div>
           <div className="flex justify-center gap-2 text-2xl mb-8">
             <span className="animate-bounce">🚀</span>
             <span className="animate-bounce" style={{ animationDelay: '0.1s' }}>⭐</span>

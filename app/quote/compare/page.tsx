@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+import DeploymentTimestamp from '@/components/DeploymentTimestamp'
 
 interface Quote {
   id: string

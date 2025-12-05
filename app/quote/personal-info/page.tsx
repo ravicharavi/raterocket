@@ -3,6 +3,7 @@
 import { useState, useEffect, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
+import DeploymentTimestamp from '@/components/DeploymentTimestamp'
 
 export default function PersonalInfoPage() {
   return (

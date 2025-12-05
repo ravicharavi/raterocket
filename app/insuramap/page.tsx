@@ -47,38 +47,12 @@ interface CityData {
   }
 }
 
-// Build-time timestamp - this gets set during deployment
-const BUILD_TIME = process.env.NEXT_PUBLIC_BUILD_TIME || new Date().toISOString()
-
-const formatTimestamp = (dateString: string): string => {
-  const date = new Date(dateString)
-  const month = date.toLocaleString('en-US', { month: 'long' })
-  const day = date.getDate()
-  const hour = date.getHours()
-  const minute = date.getMinutes()
-  const ampm = hour >= 12 ? 'PM' : 'AM'
-  const displayHour = hour % 12 || 12
-  const displayMinute = minute.toString().padStart(2, '0')
-  
-  // Add ordinal suffix (st, nd, rd, th)
-  const getOrdinal = (d: number) => {
-    if (d > 3 && d < 21) return 'th'
-    switch (d % 10) {
-      case 1: return 'st'
-      case 2: return 'nd'
-      case 3: return 'rd'
-      default: return 'th'
-    }
-  }
-  
-  return `${month} ${day}${getOrdinal(day)}, ${displayHour}:${displayMinute} ${ampm}`
-}
+import DeploymentTimestamp from '@/components/DeploymentTimestamp'
 
 export default function InsuraMapPage() {
   const [hoveredCity, setHoveredCity] = useState<CityData | null>(null)
   const [viewMode, setViewMode] = useState<'premium' | 'climate' | 'factors'>('premium')
   const [showInfo, setShowInfo] = useState(false)
-  const lastUpdated = formatTimestamp(BUILD_TIME)
 
   // Home insurance data with actual coordinates for Ontario cities
   const cities: CityData[] = [
@@ -453,9 +427,9 @@ export default function InsuraMapPage() {
           <p className="text-xl text-purple-200 mb-4">
             Home Insurance Premiums & Climate Risk Analysis
           </p>
-          <p className="text-purple-300 text-sm mb-4">
-            Most recent deployment: {lastUpdated}
-          </p>
+          <div className="mb-4">
+            <DeploymentTimestamp />
+          </div>
           <button
             onClick={() => setShowInfo(!showInfo)}
             className="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg font-semibold transition"

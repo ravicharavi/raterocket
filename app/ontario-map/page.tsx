@@ -35,36 +35,10 @@ interface CityData {
   region: string
 }
 
-// Build-time timestamp - this gets set during deployment
-const BUILD_TIME = process.env.NEXT_PUBLIC_BUILD_TIME || new Date().toISOString()
-
-const formatTimestamp = (dateString: string): string => {
-  const date = new Date(dateString)
-  const month = date.toLocaleString('en-US', { month: 'long' })
-  const day = date.getDate()
-  const hour = date.getHours()
-  const minute = date.getMinutes()
-  const ampm = hour >= 12 ? 'PM' : 'AM'
-  const displayHour = hour % 12 || 12
-  const displayMinute = minute.toString().padStart(2, '0')
-  
-  // Add ordinal suffix (st, nd, rd, th)
-  const getOrdinal = (d: number) => {
-    if (d > 3 && d < 21) return 'th'
-    switch (d % 10) {
-      case 1: return 'st'
-      case 2: return 'nd'
-      case 3: return 'rd'
-      default: return 'th'
-    }
-  }
-  
-  return `${month} ${day}${getOrdinal(day)}, ${displayHour}:${displayMinute} ${ampm}`
-}
+import DeploymentTimestamp from '@/components/DeploymentTimestamp'
 
 export default function OntarioMapPage() {
   const [hoveredCity, setHoveredCity] = useState<CityData | null>(null)
-  const lastUpdated = formatTimestamp(BUILD_TIME)
 
   // Premium data from rates.ca (2025 data in CAD per year)
   // Source: https://rates.ca/insurance-quotes/auto/ontario
@@ -152,9 +126,9 @@ export default function OntarioMapPage() {
               rates.ca
             </a>
           </p>
-          <p className="text-purple-300 text-sm mt-2">
-            Most recent deployment: {lastUpdated}
-          </p>
+          <div className="mt-2">
+            <DeploymentTimestamp />
+          </div>
         </div>
 
         {/* Map Container */}
