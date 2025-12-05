@@ -135,6 +135,9 @@ function PersonalInfoForm() {
       </nav>
 
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="mb-4 text-right">
+          <DeploymentTimestamp className="text-gray-500 text-xs" />
+        </div>
         {/* Bundle Prompt Banner */}
         {showBundlePrompt && (
           <div className="mb-6 bg-gradient-to-r from-green-500 to-emerald-600 rounded-xl p-6 text-white shadow-lg">
