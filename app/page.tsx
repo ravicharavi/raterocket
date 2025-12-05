@@ -392,8 +392,11 @@ export default function Home() {
               </ul>
             </div>
           </div>
-          <div className="mt-8 pt-8 border-t border-purple-500/20 text-center text-purple-300">
-            <p className="flex items-center justify-center gap-2">
+          <div className="mt-8 pt-8 border-t border-purple-500/20 text-center">
+            <div className="mb-4">
+              <DeploymentTimestamp className="text-purple-300 text-sm" />
+            </div>
+            <p className="text-purple-300 flex items-center justify-center gap-2">
               <span>🌌</span> &copy; 2024 RateRocket. All rights reserved. <span>🚀</span>
             </p>
           </div>
