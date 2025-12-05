@@ -581,7 +581,7 @@ export default function InsuraMapPage() {
           <div style={{ height: '600px', width: '100%', borderRadius: '8px', overflow: 'hidden' }}>
             {typeof window !== 'undefined' && (
               <MapContainer
-                center={[44.0, -79.5]}
+                center={[44.0, -79.5] as [number, number]}
                 zoom={6}
                 style={{ height: '100%', width: '100%', zIndex: 0 }}
                 scrollWheelZoom={true}
@@ -597,7 +597,7 @@ export default function InsuraMapPage() {
                   return (
                     <Marker
                       key={index}
-                      position={[city.lat, city.lng]}
+                      position={[city.lat, city.lng] as [number, number]}
                       icon={icon}
                       eventHandlers={{
                         mouseover: () => setHoveredCity(city),
