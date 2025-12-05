@@ -3,8 +3,17 @@
 import { useState, useEffect } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
+import { Suspense } from 'react'
 
 export default function PersonalInfoPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
+      <PersonalInfoForm />
+    </Suspense>
+  )
+}
+
+function PersonalInfoForm() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const insuranceType = searchParams.get('type') || 'bundle'
