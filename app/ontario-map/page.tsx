@@ -41,15 +41,31 @@ export default function OntarioMapPage() {
 
   // Set dynamic timestamp on mount
   useEffect(() => {
-    const now = new Date()
-    const options: Intl.DateTimeFormatOptions = {
-      month: 'long',
-      day: 'numeric',
-      hour: 'numeric',
-      minute: '2-digit',
-      hour12: true,
+    const formatTimestamp = () => {
+      const now = new Date()
+      const month = now.toLocaleString('en-US', { month: 'long' })
+      const day = now.getDate()
+      const hour = now.getHours()
+      const minute = now.getMinutes()
+      const ampm = hour >= 12 ? 'PM' : 'AM'
+      const displayHour = hour % 12 || 12
+      const displayMinute = minute.toString().padStart(2, '0')
+      
+      // Add ordinal suffix (st, nd, rd, th)
+      const getOrdinal = (d: number) => {
+        if (d > 3 && d < 21) return 'th'
+        switch (d % 10) {
+          case 1: return 'st'
+          case 2: return 'nd'
+          case 3: return 'rd'
+          default: return 'th'
+        }
+      }
+      
+      return `${month} ${day}${getOrdinal(day)}, ${displayHour}:${displayMinute} ${ampm}`
     }
-    setLastUpdated(now.toLocaleString('en-US', options))
+    
+    setLastUpdated(formatTimestamp())
   }, [])
 
   // Premium data from rates.ca (2025 data in CAD per year)
