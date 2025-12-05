@@ -21,7 +21,8 @@ export default function Home() {
             <div className="hidden md:flex space-x-8">
               <a href="#how-it-works" className="text-purple-200 hover:text-purple-400 transition">How It Works</a>
               <a href="#benefits" className="text-purple-200 hover:text-purple-400 transition">Benefits</a>
-              <Link href="/ontario-map" className="text-purple-200 hover:text-purple-400 transition">Ontario Map</Link>
+              <Link href="/ontario-map" className="text-purple-200 hover:text-purple-400 transition">Auto Map</Link>
+              <Link href="/insuramap" className="text-purple-200 hover:text-purple-400 transition">InsuraMap 2.0</Link>
               <a href="#faq" className="text-purple-200 hover:text-purple-400 transition">FAQ</a>
             </div>
           </div>
