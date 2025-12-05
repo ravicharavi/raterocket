@@ -162,36 +162,54 @@ export default function OntarioMapPage() {
               style={{ minHeight: '800px' }}
               preserveAspectRatio="xMidYMid meet"
             >
-              {/* Ontario Province Outline - More Accurate Shape */}
+              {/* Accurate Ontario Province Shape */}
               <path
-                d="M 10 25 L 12 22 L 15 20 L 18 18 L 22 17 L 25 16 L 28 15 L 30 14 L 32 15 L 35 16 L 38 18 L 40 20 L 42 22 L 44 25 L 45 28 L 46 32 L 47 35 L 48 38 L 49 42 L 50 45 L 51 48 L 52 50 L 54 52 L 56 54 L 58 56 L 60 58 L 62 60 L 64 62 L 65 64 L 66 66 L 67 68 L 68 70 L 68 72 L 67 74 L 65 75 L 62 76 L 58 77 L 55 78 L 52 78 L 50 77 L 48 76 L 46 75 L 44 73 L 42 71 L 40 69 L 38 67 L 36 65 L 34 63 L 32 61 L 30 59 L 28 57 L 26 55 L 24 52 L 22 49 L 20 46 L 18 43 L 16 40 L 14 37 L 12 34 L 11 30 L 10 27 Z"
-                fill="rgba(99, 102, 241, 0.15)"
-                stroke="rgba(139, 92, 246, 0.6)"
-                strokeWidth="0.4"
+                d="M 5 5
+                   L 8 4 L 12 3 L 15 2.5 L 18 2 L 20 1.5 L 22 1 L 25 0.5 L 28 0 L 32 0 L 35 0.5 L 38 1 L 42 1.5 L 45 2 L 48 2.5 L 52 3 L 55 3.5 L 58 4 L 62 4.5 L 65 5 L 68 5.5 L 72 6 L 75 6.5 L 78 7 L 82 7.5 L 85 8 L 88 8.5 L 92 9 L 95 9.5 L 98 10 L 100 10.5
+                   L 100 12
+                   L 99 14 L 98 16 L 97 18 L 96 20 L 95 22 L 94 24 L 93 26 L 92 28 L 91 30 L 90 32 L 89 34 L 88 36 L 87 38 L 86 40 L 85 42 L 84 44 L 83 46 L 82 48 L 81 50 L 80 52 L 79 54 L 78 56 L 77 58 L 76 60 L 75 62 L 74 64 L 73 66 L 72 68 L 71 70 L 70 72 L 69 74 L 68 76 L 67 78 L 66 80 L 65 82 L 64 84 L 63 86 L 62 88 L 61 90 L 60 92 L 59 94 L 58 96 L 57 98 L 56 99 L 54 100
+                   L 52 100
+                   L 50 99 L 48 98 L 46 97 L 44 96 L 42 95 L 40 94 L 38 93 L 36 92 L 34 91 L 32 90 L 30 89 L 28 88 L 26 87 L 24 86 L 22 85 L 20 84 L 18 83 L 16 82 L 14 81 L 12 80 L 10 79 L 8 78 L 6 77 L 4 76 L 2 75 L 1 73 L 0 71
+                   L 0 69
+                   L 0.5 67 L 1 65 L 2 63 L 3 61 L 4 59 L 5 57 L 6 55 L 7 53 L 8 51 L 9 49 L 10 47 L 11 45 L 12 43 L 13 41 L 14 39 L 15 37 L 16 35 L 17 33 L 18 31 L 19 29 L 20 27 L 21 25 L 22 23 L 23 21 L 24 19 L 25 17 L 26 15 L 27 13 L 28 11 L 29 9 L 30 7 L 31 5 L 32 3 L 33 1 L 34 0
+                   L 32 0
+                   L 30 0.5 L 28 1 L 26 1.5 L 24 2 L 22 2.5 L 20 3 L 18 3.5 L 16 4 L 14 4.5 L 12 5 L 10 5.5 L 8 6 L 6 6.5 L 4 7 L 2 7.5 L 1 8 L 0 9
+                   Z"
+                fill="rgba(99, 102, 241, 0.25)"
+                stroke="rgba(139, 92, 246, 0.8)"
+                strokeWidth="0.6"
               />
               
-              {/* Additional Ontario shape details - Northern Peninsula */}
+              {/* Northern Peninsula Extension */}
               <path
-                d="M 12 30 L 15 28 L 18 26 L 20 24 L 22 22 L 25 20 L 28 19 L 30 18 L 28 16 L 25 15 L 22 16 L 20 18 L 18 20 L 15 22 L 12 25 Z"
-                fill="rgba(99, 102, 241, 0.15)"
-                stroke="rgba(139, 92, 246, 0.6)"
-                strokeWidth="0.4"
+                d="M 10 5
+                   L 12 4 L 14 3 L 16 2.5 L 18 2 L 20 1.5 L 22 1 L 24 0.5 L 26 0 L 28 0 L 30 0.5 L 32 1 L 34 1.5 L 36 2 L 38 2.5 L 40 3 L 42 3.5 L 44 4 L 46 4.5 L 48 5 L 50 5.5 L 52 6 L 54 6.5 L 56 7 L 58 7.5 L 60 8 L 62 8.5 L 64 9 L 66 9.5 L 68 10 L 70 10.5 L 72 11 L 74 11.5 L 76 12 L 78 12.5 L 80 13 L 82 13.5 L 84 14 L 86 14.5 L 88 15 L 90 15.5 L 92 16 L 94 16.5 L 96 17 L 98 17.5 L 100 18
+                   L 100 20
+                   L 98 22 L 96 24 L 94 26 L 92 28 L 90 30 L 88 32 L 86 34 L 84 36 L 82 38 L 80 40 L 78 42 L 76 44 L 74 46 L 72 48 L 70 50 L 68 52 L 66 54 L 64 56 L 62 58 L 60 60 L 58 62 L 56 64 L 54 66 L 52 68 L 50 70 L 48 72 L 46 74 L 44 76 L 42 78 L 40 80 L 38 82 L 36 84 L 34 86 L 32 88 L 30 90 L 28 92 L 26 94 L 24 96 L 22 98 L 20 99 L 18 100
+                   L 16 100
+                   L 14 99 L 12 98 L 10 97 L 8 96 L 6 95 L 4 94 L 2 93 L 1 91 L 0 89
+                   L 0 87
+                   L 0.5 85 L 1 83 L 2 81 L 3 79 L 4 77 L 5 75 L 6 73 L 7 71 L 8 69 L 9 67 L 10 65 L 11 63 L 12 61 L 13 59 L 14 57 L 15 55 L 16 53 L 17 51 L 18 49 L 19 47 L 20 45 L 21 43 L 22 41 L 23 39 L 24 37 L 25 35 L 26 33 L 27 31 L 28 29 L 29 27 L 30 25 L 31 23 L 32 21 L 33 19 L 34 17 L 35 15 L 36 13 L 37 11 L 38 9 L 39 7 L 40 5
+                   Z"
+                fill="rgba(99, 102, 241, 0.25)"
+                stroke="rgba(139, 92, 246, 0.8)"
+                strokeWidth="0.6"
               />
               
-              {/* Lake Superior */}
-              <ellipse cx="15" cy="28" rx="4" ry="6" fill="rgba(59, 130, 246, 0.25)" stroke="rgba(59, 130, 246, 0.5)" strokeWidth="0.3" />
+              {/* Lake Superior - Northwest (creates indentation) */}
+              <ellipse cx="12" cy="15" rx="6" ry="10" fill="rgba(59, 130, 246, 0.35)" stroke="rgba(59, 130, 246, 0.7)" strokeWidth="0.4" />
               
-              {/* Lake Huron */}
-              <ellipse cx="42" cy="48" rx="8" ry="12" fill="rgba(59, 130, 246, 0.25)" stroke="rgba(59, 130, 246, 0.5)" strokeWidth="0.3" />
+              {/* Lake Huron - Center (large indentation) */}
+              <ellipse cx="42" cy="42" rx="12" ry="18" fill="rgba(59, 130, 246, 0.35)" stroke="rgba(59, 130, 246, 0.7)" strokeWidth="0.4" />
               
-              {/* Lake Erie */}
-              <ellipse cx="38" cy="68" rx="10" ry="4" fill="rgba(59, 130, 246, 0.25)" stroke="rgba(59, 130, 246, 0.5)" strokeWidth="0.3" />
+              {/* Georgian Bay - Northeast of Lake Huron */}
+              <ellipse cx="46" cy="38" rx="7" ry="12" fill="rgba(59, 130, 246, 0.35)" stroke="rgba(59, 130, 246, 0.7)" strokeWidth="0.4" />
               
-              {/* Lake Ontario */}
-              <ellipse cx="48" cy="58" rx="6" ry="4" fill="rgba(59, 130, 246, 0.25)" stroke="rgba(59, 130, 246, 0.5)" strokeWidth="0.3" />
+              {/* Lake Erie - South (creates southern border) */}
+              <ellipse cx="36" cy="70" rx="14" ry="6" fill="rgba(59, 130, 246, 0.35)" stroke="rgba(59, 130, 246, 0.7)" strokeWidth="0.4" />
               
-              {/* Georgian Bay */}
-              <ellipse cx="44" cy="48" rx="5" ry="8" fill="rgba(59, 130, 246, 0.25)" stroke="rgba(59, 130, 246, 0.5)" strokeWidth="0.3" />
+              {/* Lake Ontario - Southeast */}
+              <ellipse cx="52" cy="60" rx="9" ry="6" fill="rgba(59, 130, 246, 0.35)" stroke="rgba(59, 130, 246, 0.7)" strokeWidth="0.4" />
 
               {/* City markers */}
               {cities.map((city, index) => {
