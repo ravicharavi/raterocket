@@ -1,0 +1,188 @@
+'use client'
+
+import { useState } from 'react'
+import { useRouter } from 'next/navigation'
+import Link from 'next/link'
+import DeploymentTimestamp from '@/components/DeploymentTimestamp'
+
+export default function SignupPage() {
+  const router = useRouter()
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    password: '',
+    confirmPassword: ''
+  })
+  const [error, setError] = useState('')
+  const [loading, setLoading] = useState(false)
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }))
+    setError('')
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setError('')
+    setLoading(true)
+
+    // Validation
+    if (formData.password !== formData.confirmPassword) {
+      setError('Passwords do not match')
+      setLoading(false)
+      return
+    }
+
+    if (formData.password.length < 6) {
+      setError('Password must be at least 6 characters')
+      setLoading(false)
+      return
+    }
+
+    // Check if user already exists
+    const users = JSON.parse(localStorage.getItem('users') || '[]')
+    if (users.find((u: any) => u.email === formData.email)) {
+      setError('An account with this email already exists')
+      setLoading(false)
+      return
+    }
+
+    // Create new user
+    const newUser = {
+      id: Date.now().toString(),
+      name: formData.name,
+      email: formData.email,
+      password: formData.password, // In production, this would be hashed
+      createdAt: new Date().toISOString()
+    }
+
+    users.push(newUser)
+    localStorage.setItem('users', JSON.stringify(users))
+
+    // Auto login
+    localStorage.setItem('currentUser', JSON.stringify({
+      id: newUser.id,
+      email: newUser.email,
+      name: newUser.name
+    }))
+    sessionStorage.setItem('isLoggedIn', 'true')
+
+    router.push('/account')
+  }
+
+  return (
+    <div className="min-h-screen bg-slate-900">
+      {/* Navigation */}
+      <nav className="bg-slate-800 border-b border-purple-500/20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16">
+            <Link href="/" className="flex items-center gap-2">
+              <span className="text-3xl">🚀</span>
+              <h1 className="text-2xl font-bold text-purple-400">RateRocket</h1>
+            </Link>
+            <Link href="/" className="text-purple-200 hover:text-purple-400">Home</Link>
+          </div>
+        </div>
+      </nav>
+
+      <div className="max-w-md mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="text-center mb-8">
+          <h1 className="text-4xl font-bold text-white mb-2">
+            🚀 Create Your Account
+          </h1>
+          <p className="text-purple-200 mb-4">
+            Start saving quotes and managing your insurance needs
+          </p>
+          <DeploymentTimestamp />
+        </div>
+
+        <div className="bg-slate-800 rounded-xl p-8 border-2 border-purple-500/30">
+          <form onSubmit={handleSubmit} className="space-y-6">
+            {error && (
+              <div className="bg-red-500/20 border border-red-500 rounded-lg p-4 text-red-200">
+                {error}
+              </div>
+            )}
+
+            <div>
+              <label className="block text-purple-200 text-sm font-semibold mb-2">
+                Full Name
+              </label>
+              <input
+                type="text"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                required
+                placeholder="John Doe"
+                className="w-full bg-slate-700 border border-purple-500/30 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-purple-500"
+              />
+            </div>
+
+            <div>
+              <label className="block text-purple-200 text-sm font-semibold mb-2">
+                Email Address
+              </label>
+              <input
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                required
+                placeholder="your@email.com"
+                className="w-full bg-slate-700 border border-purple-500/30 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-purple-500"
+              />
+            </div>
+
+            <div>
+              <label className="block text-purple-200 text-sm font-semibold mb-2">
+                Password
+              </label>
+              <input
+                type="password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                required
+                placeholder="At least 6 characters"
+                className="w-full bg-slate-700 border border-purple-500/30 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-purple-500"
+              />
+            </div>
+
+            <div>
+              <label className="block text-purple-200 text-sm font-semibold mb-2">
+                Confirm Password
+              </label>
+              <input
+                type="password"
+                name="confirmPassword"
+                value={formData.confirmPassword}
+                onChange={handleChange}
+                required
+                placeholder="Re-enter your password"
+                className="w-full bg-slate-700 border border-purple-500/30 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-purple-500"
+              />
+            </div>
+
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white px-8 py-4 rounded-lg font-bold text-lg hover:from-purple-500 hover:to-pink-500 transition shadow-lg disabled:opacity-50"
+            >
+              {loading ? 'Creating account...' : '🚀 Create Account'}
+            </button>
+          </form>
+
+          <div className="mt-6 text-center">
+            <p className="text-purple-300 text-sm">
+              Already have an account?{' '}
+              <Link href="/login" className="text-purple-400 hover:text-purple-300 font-semibold">
+                Login here
+              </Link>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}

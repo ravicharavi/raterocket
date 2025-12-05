@@ -124,6 +124,46 @@ export default function CompareQuotesPage() {
     alert('Redirecting to provider signup page...')
   }
 
+  const handleSaveQuote = (quote: Quote) => {
+    const currentUser = localStorage.getItem('currentUser')
+    if (!currentUser) {
+      // Redirect to login if not logged in
+      router.push('/login?redirect=/quote/compare')
+      return
+    }
+
+    setQuoteToSave(quote)
+    setShowSaveModal(true)
+  }
+
+  const confirmSaveQuote = () => {
+    if (!quoteToSave) return
+
+    const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}')
+    const personalInfo = JSON.parse(sessionStorage.getItem('personalInfo') || '{}')
+    const insuranceDetails = JSON.parse(sessionStorage.getItem('insuranceDetails') || '{}')
+    const insuranceType = sessionStorage.getItem('insuranceType') || 'bundle'
+
+    const savedQuote = {
+      id: Date.now().toString(),
+      type: insuranceType,
+      provider: quoteToSave.provider,
+      monthlyPremium: quoteToSave.monthlyPremium,
+      annualPremium: quoteToSave.annualPremium,
+      savedAt: new Date().toISOString(),
+      personalInfo: { ...personalInfo, email: currentUser.email },
+      insuranceDetails
+    }
+
+    const savedQuotes = JSON.parse(localStorage.getItem('savedQuotes') || '[]')
+    savedQuotes.push(savedQuote)
+    localStorage.setItem('savedQuotes', JSON.stringify(savedQuotes))
+
+    setShowSaveModal(false)
+    setQuoteToSave(null)
+    alert('Quote saved successfully! View it in your account.')
+  }
+
   if (loading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50 flex items-center justify-center">
