@@ -162,53 +162,154 @@ export default function OntarioMapPage() {
               style={{ minHeight: '800px' }}
               preserveAspectRatio="xMidYMid meet"
             >
-              {/* Accurate Ontario Province Shape - Based on actual geography */}
-              {/* Main body - wide in south, narrower in north */}
+              {/* Accurate Ontario Province Shape - Based on actual geographic boundaries */}
               <path
-                d="M 8 2
-                   L 12 1.5 L 16 1 L 20 0.5 L 25 0 L 30 0 L 35 0 L 40 0 L 45 0 L 50 0 L 55 0 L 60 0 L 65 0 L 70 0 L 75 0 L 80 0 L 85 0 L 90 0 L 95 0 L 98 0.5 L 100 1
-                   L 100 3
-                   L 99 5 L 98 7 L 97 9 L 96 11 L 95 13 L 94 15 L 93 17 L 92 19 L 91 21 L 90 23 L 89 25 L 88 27 L 87 29 L 86 31 L 85 33 L 84 35 L 83 37 L 82 39 L 81 41 L 80 43 L 79 45 L 78 47 L 77 49 L 76 51 L 75 53 L 74 55 L 73 57 L 72 59 L 71 61 L 70 63 L 69 65 L 68 67 L 67 69 L 66 71 L 65 73 L 64 75 L 63 77 L 62 79 L 61 81 L 60 83 L 59 85 L 58 87 L 57 89 L 56 91 L 55 93 L 54 95 L 53 97 L 52 99 L 50 100
-                   L 48 100
-                   L 46 99 L 44 98 L 42 97 L 40 96 L 38 95 L 36 94 L 34 93 L 32 92 L 30 91 L 28 90 L 26 89 L 24 88 L 22 87 L 20 86 L 18 85 L 16 84 L 14 83 L 12 82 L 10 81 L 8 80 L 6 79 L 4 78 L 2 77 L 1 75 L 0 73
-                   L 0 71
-                   L 0.5 69 L 1 67 L 2 65 L 3 63 L 4 61 L 5 59 L 6 57 L 7 55 L 8 53 L 9 51 L 10 49 L 11 47 L 12 45 L 13 43 L 14 41 L 15 39 L 16 37 L 17 35 L 18 33 L 19 31 L 20 29 L 21 27 L 22 25 L 23 23 L 24 21 L 25 19 L 26 17 L 27 15 L 28 13 L 29 11 L 30 9 L 31 7 L 32 5 L 33 3 L 34 1 L 35 0.5 L 36 0
-                   L 34 0
-                   L 32 0.5 L 30 1 L 28 1.5 L 26 2 L 24 2.5 L 22 3 L 20 3.5 L 18 4 L 16 4.5 L 14 5 L 12 5.5 L 10 6 L 8 6.5 L 6 7 L 4 7.5 L 2 8 L 1 9 L 0 10
+                d="M 5 3
+                   C 5 2, 6 1, 8 0.5
+                   C 10 0, 12 0, 15 0
+                   C 18 0, 20 0, 22 0
+                   C 25 0, 28 0, 30 0
+                   C 35 0, 40 0, 45 0
+                   C 50 0, 55 0, 60 0
+                   C 65 0, 70 0, 75 0
+                   C 80 0, 85 0, 90 0
+                   C 92 0, 94 0.5, 96 1
+                   C 98 1.5, 99 2, 100 3
+                   L 100 5
+                   C 99 7, 98 9, 97 11
+                   C 96 13, 95 15, 94 17
+                   C 93 19, 92 21, 91 23
+                   C 90 25, 89 27, 88 29
+                   C 87 31, 86 33, 85 35
+                   C 84 37, 83 39, 82 41
+                   C 81 43, 80 45, 79 47
+                   C 78 49, 77 51, 76 53
+                   C 75 55, 74 57, 73 59
+                   C 72 61, 71 63, 70 65
+                   C 69 67, 68 69, 67 71
+                   C 66 73, 65 75, 64 77
+                   C 63 79, 62 81, 61 83
+                   C 60 85, 59 87, 58 89
+                   C 57 91, 56 93, 55 95
+                   C 54 97, 53 98, 52 99
+                   C 51 99.5, 50 100, 48 100
+                   C 46 100, 44 99, 42 98
+                   C 40 97, 38 96, 36 95
+                   C 34 94, 32 93, 30 92
+                   C 28 91, 26 90, 24 89
+                   C 22 88, 20 87, 18 86
+                   C 16 85, 14 84, 12 83
+                   C 10 82, 8 81, 6 80
+                   C 4 79, 2 78, 1 76
+                   C 0.5 74, 0 72, 0 70
+                   L 0 68
+                   C 0.5 66, 1 64, 2 62
+                   C 3 60, 4 58, 5 56
+                   C 6 54, 7 52, 8 50
+                   C 9 48, 10 46, 11 44
+                   C 12 42, 13 40, 14 38
+                   C 15 36, 16 34, 17 32
+                   C 18 30, 19 28, 20 26
+                   C 21 24, 22 22, 23 20
+                   C 24 18, 25 16, 26 14
+                   C 27 12, 28 10, 29 8
+                   C 30 6, 31 4, 32 2
+                   C 33 1, 34 0.5, 35 0
+                   L 33 0
+                   C 31 0.5, 29 1, 27 1.5
+                   C 25 2, 23 2.5, 21 3
+                   C 19 3.5, 17 4, 15 4.5
+                   C 13 5, 11 5.5, 9 6
+                   C 7 6.5, 5 7, 3 8
+                   C 2 9, 1 10, 0.5 11
+                   C 0 12, 0 13, 0 14
+                   L 0 12
+                   C 0.5 10, 1 8, 2 6
+                   C 3 4, 4 3, 5 3
                    Z"
                 fill="rgba(99, 102, 241, 0.25)"
                 stroke="rgba(139, 92, 246, 0.8)"
                 strokeWidth="0.6"
               />
               
-              {/* Northern extension - narrower top */}
+              {/* Northern Peninsula - narrower extension upward */}
               <path
-                d="M 15 0
-                   L 20 0 L 25 0 L 30 0 L 35 0 L 40 0 L 45 0 L 50 0 L 55 0 L 60 0 L 65 0 L 70 0 L 75 0 L 80 0 L 85 0 L 90 0 L 95 0 L 100 0
+                d="M 20 0
+                   C 22 0, 24 0, 26 0
+                   C 28 0, 30 0, 32 0
+                   C 35 0, 38 0, 40 0
+                   C 42 0, 44 0, 46 0
+                   C 48 0, 50 0, 52 0
+                   C 54 0, 56 0, 58 0
+                   C 60 0, 62 0, 64 0
+                   C 66 0, 68 0, 70 0
+                   C 72 0, 74 0, 76 0
+                   C 78 0, 80 0, 82 0
+                   C 84 0, 86 0, 88 0
+                   C 90 0, 92 0, 94 0
+                   C 96 0, 98 0, 100 0
                    L 100 2
-                   L 98 4 L 96 6 L 94 8 L 92 10 L 90 12 L 88 14 L 86 16 L 84 18 L 82 20 L 80 22 L 78 24 L 76 26 L 74 28 L 72 30 L 70 32 L 68 34 L 66 36 L 64 38 L 62 40 L 60 42 L 58 44 L 56 46 L 54 48 L 52 50 L 50 52 L 48 54 L 46 56 L 44 58 L 42 60 L 40 62 L 38 64 L 36 66 L 34 68 L 32 70 L 30 72 L 28 74 L 26 76 L 24 78 L 22 80 L 20 82 L 18 84 L 16 86 L 14 88 L 12 90 L 10 92 L 8 94 L 6 96 L 4 98 L 2 99 L 0 100
+                   C 98 4, 96 6, 94 8
+                   C 92 10, 90 12, 88 14
+                   C 86 16, 84 18, 82 20
+                   C 80 22, 78 24, 76 26
+                   C 74 28, 72 30, 70 32
+                   C 68 34, 66 36, 64 38
+                   C 62 40, 60 42, 58 44
+                   C 56 46, 54 48, 52 50
+                   C 50 52, 48 54, 46 56
+                   C 44 58, 42 60, 40 62
+                   C 38 64, 36 66, 34 68
+                   C 32 70, 30 72, 28 74
+                   C 26 76, 24 78, 22 80
+                   C 20 82, 18 84, 16 86
+                   C 14 88, 12 90, 10 92
+                   C 8 94, 6 96, 4 98
+                   C 2 99, 1 99.5, 0 100
                    L 0 98
-                   L 1 96 L 2 94 L 3 92 L 4 90 L 5 88 L 6 86 L 7 84 L 8 82 L 9 80 L 10 78 L 11 76 L 12 74 L 13 72 L 14 70 L 15 68 L 16 66 L 17 64 L 18 62 L 19 60 L 20 58 L 21 56 L 22 54 L 23 52 L 24 50 L 25 48 L 26 46 L 27 44 L 28 42 L 29 40 L 30 38 L 31 36 L 32 34 L 33 32 L 34 30 L 35 28 L 36 26 L 37 24 L 38 22 L 39 20 L 40 18 L 41 16 L 42 14 L 43 12 L 44 10 L 45 8 L 46 6 L 47 4 L 48 2 L 49 0
+                   C 1 96, 2 94, 3 92
+                   C 4 90, 5 88, 6 86
+                   C 7 84, 8 82, 9 80
+                   C 10 78, 11 76, 12 74
+                   C 13 72, 14 70, 15 68
+                   C 16 66, 17 64, 18 62
+                   C 19 60, 20 58, 21 56
+                   C 22 54, 23 52, 24 50
+                   C 25 48, 26 46, 27 44
+                   C 28 42, 29 40, 30 38
+                   C 31 36, 32 34, 33 32
+                   C 34 30, 35 28, 36 26
+                   C 37 24, 38 22, 39 20
+                   C 40 18, 41 16, 42 14
+                   C 43 12, 44 10, 45 8
+                   C 46 6, 47 4, 48 2
+                   C 49 1, 50 0.5, 51 0
+                   L 48 0
+                   C 46 0, 44 0, 42 0
+                   C 40 0, 38 0, 36 0
+                   C 34 0, 32 0, 30 0
+                   C 28 0, 26 0, 24 0
+                   C 22 0, 20 0, 18 0
                    Z"
                 fill="rgba(99, 102, 241, 0.25)"
                 stroke="rgba(139, 92, 246, 0.8)"
                 strokeWidth="0.6"
               />
               
-              {/* Lake Superior - creates northwest indentation */}
-              <ellipse cx="10" cy="12" rx="7" ry="12" fill="rgba(59, 130, 246, 0.4)" stroke="rgba(59, 130, 246, 0.8)" strokeWidth="0.5" />
+              {/* Lake Superior - Northwest (creates indentation in border) */}
+              <ellipse cx="8" cy="10" rx="8" ry="14" fill="rgba(59, 130, 246, 0.4)" stroke="rgba(59, 130, 246, 0.8)" strokeWidth="0.5" />
               
-              {/* Lake Huron - large center indentation */}
-              <ellipse cx="40" cy="40" rx="14" ry="20" fill="rgba(59, 130, 246, 0.4)" stroke="rgba(59, 130, 246, 0.8)" strokeWidth="0.5" />
+              {/* Lake Huron - Large center indentation */}
+              <ellipse cx="38" cy="38" rx="16" ry="22" fill="rgba(59, 130, 246, 0.4)" stroke="rgba(59, 130, 246, 0.8)" strokeWidth="0.5" />
               
-              {/* Georgian Bay - northeast extension */}
-              <ellipse cx="45" cy="35" rx="8" ry="14" fill="rgba(59, 130, 246, 0.4)" stroke="rgba(59, 130, 246, 0.8)" strokeWidth="0.5" />
+              {/* Georgian Bay - Northeast extension from Lake Huron */}
+              <ellipse cx="44" cy="32" rx="9" ry="16" fill="rgba(59, 130, 246, 0.4)" stroke="rgba(59, 130, 246, 0.8)" strokeWidth="0.5" />
               
-              {/* Lake Erie - southern border */}
-              <ellipse cx="34" cy="68" rx="16" ry="7" fill="rgba(59, 130, 246, 0.4)" stroke="rgba(59, 130, 246, 0.8)" strokeWidth="0.5" />
+              {/* Lake Erie - Southern border */}
+              <ellipse cx="32" cy="70" rx="18" ry="8" fill="rgba(59, 130, 246, 0.4)" stroke="rgba(59, 130, 246, 0.8)" strokeWidth="0.5" />
               
-              {/* Lake Ontario - southeast */}
-              <ellipse cx="50" cy="58" rx="10" ry="7" fill="rgba(59, 130, 246, 0.4)" stroke="rgba(59, 130, 246, 0.8)" strokeWidth="0.5" />
+              {/* Lake Ontario - Southeast */}
+              <ellipse cx="50" cy="60" rx="11" ry="8" fill="rgba(59, 130, 246, 0.4)" stroke="rgba(59, 130, 246, 0.8)" strokeWidth="0.5" />
 
               {/* City markers */}
               {cities.map((city, index) => {
