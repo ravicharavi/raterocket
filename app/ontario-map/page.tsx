@@ -128,15 +128,34 @@ export default function OntarioMapPage() {
       backgroundAttachment: 'fixed',
     }}>
       {/* Floating Planets Background */}
-      <div className="absolute top-20 right-10 w-96 h-96 planet opacity-30"></div>
-      <div className="absolute bottom-40 left-20 w-64 h-64 planet opacity-20"></div>
+      <div 
+        className="absolute top-20 right-10 w-96 h-96 opacity-30"
+        style={{
+          background: 'radial-gradient(circle at 30% 30%, rgba(139, 92, 246, 0.3), rgba(99, 102, 241, 0.2))',
+          borderRadius: '50%',
+          filter: 'blur(40px)',
+        }}
+      ></div>
+      <div 
+        className="absolute bottom-40 left-20 w-64 h-64 opacity-20"
+        style={{
+          background: 'radial-gradient(circle at 30% 30%, rgba(139, 92, 246, 0.3), rgba(99, 102, 241, 0.2))',
+          borderRadius: '50%',
+          filter: 'blur(40px)',
+        }}
+      ></div>
 
       {/* Navigation */}
       <nav className="bg-slate-900/80 backdrop-blur-md border-b border-purple-500/20 shadow-lg sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <Link href="/" className="flex items-center gap-2">
-              <span className="text-3xl rocket-glow">🚀</span>
+              <span 
+                className="text-3xl"
+                style={{
+                  textShadow: '0 0 20px rgba(99, 102, 241, 0.8), 0 0 40px rgba(139, 92, 246, 0.6)',
+                }}
+              >🚀</span>
               <h1 className="text-2xl font-bold bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent">
                 RateRocket
               </h1>
