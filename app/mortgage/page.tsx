@@ -14,6 +14,9 @@ interface LenderOffer {
   approvalScore: number
   features: string[]
   eligibility: 'Excellent' | 'Good' | 'Fair' | 'Limited'
+  totalInterest: number
+  whyConsider: string
+  badges: string[]
 }
 
 export default function MortgagePage() {
@@ -22,8 +25,10 @@ export default function MortgagePage() {
   const [creditScore, setCreditScore] = useState<string>('')
   const [downPayment, setDownPayment] = useState<string>('')
   const [propertyValue, setPropertyValue] = useState<string>('')
+  const [loanAmount, setLoanAmount] = useState<string>('')
   const [results, setResults] = useState<LenderOffer[]>([])
   const [calculated, setCalculated] = useState(false)
+  const [sortBy, setSortBy] = useState<'rate' | 'approval' | 'payment'>('rate')
 
   // Calculate mortgage approval amounts
   const calculateMortgage = () => {
@@ -152,24 +157,67 @@ export default function MortgagePage() {
       },
     ]
 
-    // Calculate monthly payments for each lender
+    // Use loan amount if provided, otherwise use max approval
+    const requestedLoan = loanAmount ? parseFloat(loanAmount) : null
+    
+    // Calculate monthly payments and total interest for each lender
     lenders.forEach((lender) => {
-      const loanAmount = lender.maxApproval - (lender.maxApproval * lender.downPaymentRequired)
+      const effectiveLoanAmount = requestedLoan 
+        ? Math.min(requestedLoan, lender.maxApproval - (lender.maxApproval * lender.downPaymentRequired))
+        : lender.maxApproval - (lender.maxApproval * lender.downPaymentRequired)
+      
       const monthlyRate = lender.interestRate / 100 / 12
       const numPayments = 25 * 12 // 25-year amortization
       
       if (monthlyRate > 0) {
         lender.monthlyPayment = Math.round(
-          loanAmount * (monthlyRate * Math.pow(1 + monthlyRate, numPayments)) / 
+          effectiveLoanAmount * (monthlyRate * Math.pow(1 + monthlyRate, numPayments)) / 
           (Math.pow(1 + monthlyRate, numPayments) - 1)
         )
+        lender.totalInterest = Math.round(
+          (lender.monthlyPayment * numPayments) - effectiveLoanAmount
+        )
       } else {
-        lender.monthlyPayment = Math.round(loanAmount / numPayments)
+        lender.monthlyPayment = Math.round(effectiveLoanAmount / numPayments)
+        lender.totalInterest = 0
+      }
+
+      // Add "why consider" explanations
+      if (lender.lender === 'Royal Bank of Canada') {
+        lender.whyConsider = 'Best overall rates for high credit scores. Excellent customer service and flexible terms.'
+        lender.badges = ['🏆 Best Rates', '⭐ Top Rated']
+      } else if (lender.lender === 'TD Canada Trust') {
+        lender.whyConsider = 'Great for first-time homebuyers with comprehensive support and rate hold guarantees.'
+        lender.badges = ['👥 First-Time Friendly', '🔒 Rate Guarantee']
+      } else if (lender.lender === 'Scotiabank') {
+        lender.whyConsider = 'Step mortgage program helps you build equity faster. Ideal for long-term planning.'
+        lender.badges = ['📈 Step Program', '💡 Smart Options']
+      } else if (lender.lender === 'BMO') {
+        lender.whyConsider = 'Strong approval amounts and competitive rates. Great online tools and mobile app.'
+        lender.badges = ['💻 Digital Tools', '📱 Mobile App']
+      } else if (lender.lender === 'CIBC') {
+        lender.whyConsider = 'Flexible mortgage terms and prepayment options. Good for those who want payment flexibility.'
+        lender.badges = ['🔄 Flexible Terms', '💰 Prepayment Options']
+      } else if (lender.lender === 'Tangerine') {
+        lender.whyConsider = 'Lowest rates for online-only banking. No fees and competitive rates for digital-savvy borrowers.'
+        lender.badges = ['💵 Lowest Rates', '🚫 No Fees']
+      } else if (lender.lender === 'HSBC Canada') {
+        lender.whyConsider = 'Best for international buyers or those with global banking needs. Multi-currency options.'
+        lender.badges = ['🌍 International', '💱 Multi-Currency']
+      } else if (lender.lender === 'National Bank') {
+        lender.whyConsider = 'Strong presence in Quebec with competitive rates. Great for Quebec residents.'
+        lender.badges = ['🇨🇦 Quebec Focus', '💼 Regional Expert']
       }
     })
 
-    // Sort by max approval (highest first)
-    lenders.sort((a, b) => b.maxApproval - a.maxApproval)
+    // Sort based on user preference
+    if (sortBy === 'rate') {
+      lenders.sort((a, b) => a.interestRate - b.interestRate)
+    } else if (sortBy === 'approval') {
+      lenders.sort((a, b) => b.maxApproval - a.maxApproval)
+    } else {
+      lenders.sort((a, b) => a.monthlyPayment - b.monthlyPayment)
+    }
 
     setResults(lenders)
     setCalculated(true)
@@ -274,7 +322,7 @@ export default function MortgagePage() {
               />
             </div>
 
-            <div className="md:col-span-2">
+            <div>
               <label className="block text-purple-200 text-sm font-semibold mb-2">
                 Property Value (CAD) <span className="text-xs text-purple-400">(Optional)</span>
               </label>
@@ -285,6 +333,20 @@ export default function MortgagePage() {
                 placeholder="e.g., 500000"
                 className="w-full bg-slate-700 border border-purple-500/30 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-purple-500"
               />
+            </div>
+
+            <div>
+              <label className="block text-purple-200 text-sm font-semibold mb-2">
+                Loan Amount Needed (CAD) <span className="text-xs text-purple-400">(Optional)</span>
+              </label>
+              <input
+                type="number"
+                value={loanAmount}
+                onChange={(e) => setLoanAmount(e.target.value)}
+                placeholder="e.g., 400000"
+                className="w-full bg-slate-700 border border-purple-500/30 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-purple-500"
+              />
+              <p className="text-purple-400 text-xs mt-1">Enter the amount you need to borrow for better rate comparison</p>
             </div>
           </div>
 
@@ -299,42 +361,134 @@ export default function MortgagePage() {
         {/* Results */}
         {calculated && results.length > 0 && (
           <div className="mb-8">
-            <h2 className="text-2xl font-bold text-white mb-6">Lender Offers</h2>
+            {/* Best Option Summary */}
+            <div className="bg-gradient-to-r from-green-600/30 to-emerald-600/30 border-2 border-green-500 rounded-xl p-6 mb-8">
+              <div className="flex items-center gap-4 mb-4">
+                <span className="text-5xl">🏆</span>
+                <div>
+                  <h2 className="text-2xl font-bold text-white">Best Rate: {results[0].lender}</h2>
+                  <p className="text-green-200">Lowest interest rate available for your profile</p>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div className="bg-slate-800/50 rounded-lg p-3">
+                  <p className="text-green-200 text-xs mb-1">Interest Rate</p>
+                  <p className="text-2xl font-bold text-white">{results[0].interestRate.toFixed(2)}%</p>
+                </div>
+                <div className="bg-slate-800/50 rounded-lg p-3">
+                  <p className="text-green-200 text-xs mb-1">Monthly Payment</p>
+                  <p className="text-2xl font-bold text-white">${results[0].monthlyPayment.toLocaleString()}</p>
+                </div>
+                <div className="bg-slate-800/50 rounded-lg p-3">
+                  <p className="text-green-200 text-xs mb-1">Max Approval</p>
+                  <p className="text-2xl font-bold text-white">${results[0].maxApproval.toLocaleString()}</p>
+                </div>
+                <div className="bg-slate-800/50 rounded-lg p-3">
+                  <p className="text-green-200 text-xs mb-1">Total Interest</p>
+                  <p className="text-2xl font-bold text-white">${results[0].totalInterest.toLocaleString()}</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Sort Options */}
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-2xl font-bold text-white">Compare All Lenders</h2>
+              <div className="flex gap-2">
+                <button
+                  onClick={() => setSortBy('rate')}
+                  className={`px-4 py-2 rounded-lg font-semibold text-sm transition ${
+                    sortBy === 'rate'
+                      ? 'bg-purple-600 text-white'
+                      : 'bg-slate-700 text-purple-200 hover:bg-slate-600'
+                  }`}
+                >
+                  💰 Best Rate
+                </button>
+                <button
+                  onClick={() => setSortBy('approval')}
+                  className={`px-4 py-2 rounded-lg font-semibold text-sm transition ${
+                    sortBy === 'approval'
+                      ? 'bg-purple-600 text-white'
+                      : 'bg-slate-700 text-purple-200 hover:bg-slate-600'
+                  }`}
+                >
+                  📈 Highest Approval
+                </button>
+                <button
+                  onClick={() => setSortBy('payment')}
+                  className={`px-4 py-2 rounded-lg font-semibold text-sm transition ${
+                    sortBy === 'payment'
+                      ? 'bg-purple-600 text-white'
+                      : 'bg-slate-700 text-purple-200 hover:bg-slate-600'
+                  }`}
+                >
+                  💵 Lowest Payment
+                </button>
+              </div>
+            </div>
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {results.map((lender, index) => (
                 <div
                   key={index}
-                  className="bg-slate-800 rounded-xl p-6 border-2 border-purple-500/30 hover:border-purple-500/50 transition"
+                  className={`bg-slate-800 rounded-xl p-6 border-2 transition relative ${
+                    index === 0 && sortBy === 'rate'
+                      ? 'border-green-500 shadow-lg shadow-green-500/20'
+                      : 'border-purple-500/30 hover:border-purple-500/50'
+                  }`}
                 >
+                  {/* Best Rate Badge */}
+                  {index === 0 && sortBy === 'rate' && (
+                    <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-green-500 text-white px-4 py-1 rounded-full text-sm font-bold shadow-lg">
+                      🏆 BEST RATE
+                    </div>
+                  )}
+
                   <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center gap-3">
                       <span className="text-4xl">{lender.logo}</span>
                       <div>
                         <h3 className="text-xl font-bold text-white">{lender.lender}</h3>
-                        <span className={`px-3 py-1 rounded-full text-xs font-semibold ${getEligibilityColor(lender.eligibility)}`}>
-                          {lender.eligibility} Eligibility
-                        </span>
+                        <div className="flex gap-2 mt-1 flex-wrap">
+                          <span className={`px-2 py-1 rounded-full text-xs font-semibold ${getEligibilityColor(lender.eligibility)}`}>
+                            {lender.eligibility}
+                          </span>
+                          {lender.badges.map((badge, idx) => (
+                            <span key={idx} className="px-2 py-1 rounded-full text-xs font-semibold bg-purple-600/30 text-purple-200">
+                              {badge}
+                            </span>
+                          ))}
+                        </div>
                       </div>
                     </div>
                     <div className="text-right">
                       <div className="text-2xl font-bold text-green-400">
                         {lender.approvalScore}%
                       </div>
-                      <div className="text-xs text-purple-300">Approval Score</div>
+                      <div className="text-xs text-purple-300">Score</div>
                     </div>
                   </div>
 
                   <div className="grid grid-cols-2 gap-4 mb-4">
-                    <div className="bg-purple-600/20 rounded-lg p-3 border border-purple-500/30">
-                      <p className="text-purple-200 text-xs mb-1">Max Approval</p>
-                      <p className="text-2xl font-bold text-white">
-                        ${lender.maxApproval.toLocaleString()}
+                    <div className={`rounded-lg p-3 border ${
+                      index === 0 && sortBy === 'rate' 
+                        ? 'bg-green-600/20 border-green-500/30' 
+                        : 'bg-blue-600/20 border-blue-500/30'
+                    }`}>
+                      <p className={`text-xs mb-1 ${index === 0 && sortBy === 'rate' ? 'text-green-200' : 'text-blue-200'}`}>
+                        Interest Rate
                       </p>
-                    </div>
-                    <div className="bg-blue-600/20 rounded-lg p-3 border border-blue-500/30">
-                      <p className="text-blue-200 text-xs mb-1">Interest Rate</p>
                       <p className="text-2xl font-bold text-white">
                         {lender.interestRate.toFixed(2)}%
+                      </p>
+                      {index === 0 && sortBy === 'rate' && (
+                        <p className="text-green-300 text-xs mt-1">⭐ Lowest</p>
+                      )}
+                    </div>
+                    <div className="bg-purple-600/20 rounded-lg p-3 border border-purple-500/30">
+                      <p className="text-purple-200 text-xs mb-1">Max Approval</p>
+                      <p className="text-xl font-bold text-white">
+                        ${lender.maxApproval.toLocaleString()}
                       </p>
                     </div>
                     <div className="bg-green-600/20 rounded-lg p-3 border border-green-500/30">
@@ -344,30 +498,68 @@ export default function MortgagePage() {
                       </p>
                     </div>
                     <div className="bg-orange-600/20 rounded-lg p-3 border border-orange-500/30">
-                      <p className="text-orange-200 text-xs mb-1">Down Payment</p>
+                      <p className="text-orange-200 text-xs mb-1">Total Interest</p>
                       <p className="text-xl font-bold text-white">
-                        {(lender.downPaymentRequired * 100).toFixed(0)}%
+                        ${lender.totalInterest.toLocaleString()}
                       </p>
                     </div>
                   </div>
 
+                  {/* Why Consider This Lender */}
+                  <div className="bg-slate-700/50 rounded-lg p-4 mb-4 border border-purple-500/20">
+                    <p className="text-purple-200 text-sm font-semibold mb-2">💡 Why Consider This Lender:</p>
+                    <p className="text-purple-300 text-sm">{lender.whyConsider}</p>
+                  </div>
+
                   <div className="border-t border-purple-500/30 pt-4">
-                    <p className="text-purple-200 text-sm font-semibold mb-2">Features:</p>
-                    <ul className="space-y-1">
+                    <p className="text-purple-200 text-sm font-semibold mb-2">Key Features:</p>
+                    <ul className="space-y-1 mb-4">
                       {lender.features.map((feature, idx) => (
                         <li key={idx} className="text-purple-300 text-sm flex items-center gap-2">
-                          <span>✓</span>
+                          <span className="text-green-400">✓</span>
                           <span>{feature}</span>
                         </li>
                       ))}
                     </ul>
                   </div>
 
-                  <button className="mt-4 w-full bg-purple-600 hover:bg-purple-500 text-white px-4 py-2 rounded-lg font-semibold transition">
-                    Apply with {lender.lender}
-                  </button>
+                  <div className="flex gap-2">
+                    <button className="flex-1 bg-purple-600 hover:bg-purple-500 text-white px-4 py-2 rounded-lg font-semibold transition">
+                      Apply Now
+                    </button>
+                    <button className="bg-slate-700 hover:bg-slate-600 text-white px-4 py-2 rounded-lg font-semibold transition">
+                      Learn More
+                    </button>
+                  </div>
                 </div>
               ))}
+            </div>
+
+            {/* Comparison Table */}
+            <div className="mt-8 bg-slate-800 rounded-xl p-6 border border-purple-500/30 overflow-x-auto">
+              <h3 className="text-xl font-bold text-white mb-4">Quick Comparison</h3>
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b border-purple-500/30">
+                    <th className="text-left py-3 text-purple-200">Lender</th>
+                    <th className="text-right py-3 text-purple-200">Rate</th>
+                    <th className="text-right py-3 text-purple-200">Monthly</th>
+                    <th className="text-right py-3 text-purple-200">Max Approval</th>
+                    <th className="text-right py-3 text-purple-200">Total Interest</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {results.map((lender, idx) => (
+                    <tr key={idx} className={`border-b border-purple-500/10 ${idx === 0 && sortBy === 'rate' ? 'bg-green-500/10' : ''}`}>
+                      <td className="py-3 text-white font-semibold">{lender.logo} {lender.lender}</td>
+                      <td className="py-3 text-right text-white">{lender.interestRate.toFixed(2)}%</td>
+                      <td className="py-3 text-right text-white">${lender.monthlyPayment.toLocaleString()}</td>
+                      <td className="py-3 text-right text-white">${lender.maxApproval.toLocaleString()}</td>
+                      <td className="py-3 text-right text-white">${lender.totalInterest.toLocaleString()}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
 
             <div className="mt-6 bg-slate-800 rounded-xl p-6 border border-purple-500/30">
