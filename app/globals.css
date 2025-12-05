@@ -3,31 +3,88 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: 15, 23, 42;
+  --background-end-rgb: 30, 41, 59;
 }
 
 body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
       to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+      rgb(15, 23, 42),
+      rgb(30, 41, 59),
+      rgb(15, 23, 42)
+    );
+  background-attachment: fixed;
 }
 
+/* Space/Starfield Background */
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+
+  .space-bg {
+    background: 
+      radial-gradient(ellipse at top, rgba(99, 102, 241, 0.1) 0%, transparent 50%),
+      radial-gradient(ellipse at bottom, rgba(139, 92, 246, 0.1) 0%, transparent 50%),
+      linear-gradient(to bottom, rgb(15, 23, 42), rgb(30, 41, 59), rgb(15, 23, 42));
+    position: relative;
+    overflow: hidden;
+  }
+
+  .space-bg::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+      radial-gradient(2px 2px at 20% 30%, white, transparent),
+      radial-gradient(2px 2px at 60% 70%, white, transparent),
+      radial-gradient(1px 1px at 50% 50%, white, transparent),
+      radial-gradient(1px 1px at 80% 10%, white, transparent),
+      radial-gradient(2px 2px at 90% 40%, white, transparent),
+      radial-gradient(1px 1px at 33% 60%, white, transparent),
+      radial-gradient(2px 2px at 10% 80%, white, transparent),
+      radial-gradient(1px 1px at 70% 90%, white, transparent);
+    background-size: 200% 200%;
+    background-position: 0% 0%;
+    animation: twinkle 20s linear infinite;
+    opacity: 0.6;
+    pointer-events: none;
+  }
+
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
+  }
+
+  .planet {
+    background: radial-gradient(circle at 30% 30%, rgba(139, 92, 246, 0.3), rgba(99, 102, 241, 0.2));
+    border-radius: 50%;
+    filter: blur(40px);
+    animation: float 15s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px) translateX(0px); }
+    50% { transform: translateY(-20px) translateX(10px); }
+  }
+
+  .rocket-glow {
+    text-shadow: 0 0 20px rgba(99, 102, 241, 0.8), 0 0 40px rgba(139, 92, 246, 0.6);
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% { 
+      text-shadow: 0 0 20px rgba(99, 102, 241, 0.8), 0 0 40px rgba(139, 92, 246, 0.6);
+    }
+    50% { 
+      text-shadow: 0 0 30px rgba(99, 102, 241, 1), 0 0 60px rgba(139, 92, 246, 0.8);
+    }
   }
 }
