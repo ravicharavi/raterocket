@@ -1,11 +1,14 @@
 'use client'
 
-import { useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { useState, useEffect } from 'react'
+import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 
 export default function PersonalInfoPage() {
   const router = useRouter()
+  const searchParams = useSearchParams()
+  const insuranceType = searchParams.get('type') || 'bundle'
+  
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -20,6 +23,17 @@ export default function PersonalInfoPage() {
   })
 
   const [errors, setErrors] = useState<Record<string, string>>({})
+  const [showBundlePrompt, setShowBundlePrompt] = useState(false)
+
+  useEffect(() => {
+    // Store insurance type
+    sessionStorage.setItem('insuranceType', insuranceType)
+    
+    // Show bundle prompt if user selected auto or home only
+    if (insuranceType === 'auto' || insuranceType === 'home') {
+      setShowBundlePrompt(true)
+    }
+  }, [insuranceType])
 
   const canadianProvinces = [
     'Alberta',
@@ -96,6 +110,7 @@ export default function PersonalInfoPage() {
 
     // Store in sessionStorage and navigate to next step
     sessionStorage.setItem('personalInfo', JSON.stringify(formData))
+    sessionStorage.setItem('insuranceType', insuranceType)
     router.push('/quote/insurance-details')
   }
 
@@ -111,6 +126,40 @@ export default function PersonalInfoPage() {
       </nav>
 
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        {/* Bundle Prompt Banner */}
+        {showBundlePrompt && (
+          <div className="mb-6 bg-gradient-to-r from-green-500 to-emerald-600 rounded-xl p-6 text-white shadow-lg">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+              <div className="flex items-center gap-4">
+                <div className="text-4xl">💰</div>
+                <div>
+                  <h3 className="text-xl font-bold mb-1">
+                    {insuranceType === 'auto' ? 'Add Home Insurance' : 'Add Auto Insurance'} and Save Up to 25%!
+                  </h3>
+                  <p className="text-green-50">
+                    Bundle your {insuranceType === 'auto' ? 'auto' : 'home'} insurance with {insuranceType === 'auto' ? 'home' : 'auto'} coverage 
+                    and save an average of $400-$600 per year. One policy, one bill, bigger savings!
+                  </p>
+                </div>
+              </div>
+              <div className="flex gap-3">
+                <Link
+                  href="/quote/personal-info?type=bundle"
+                  className="bg-white text-green-600 px-6 py-3 rounded-lg font-bold hover:bg-green-50 transition shadow-md whitespace-nowrap"
+                >
+                  Switch to Bundle
+                </Link>
+                <button
+                  onClick={() => setShowBundlePrompt(false)}
+                  className="bg-green-600/20 backdrop-blur-sm text-white border-2 border-white px-4 py-3 rounded-lg font-semibold hover:bg-green-600/30 transition"
+                >
+                  Continue with {insuranceType === 'auto' ? 'Auto' : 'Home'} Only
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* Progress Indicator */}
         <div className="mb-8">
           <div className="flex items-center justify-between mb-4">
