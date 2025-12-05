@@ -162,54 +162,53 @@ export default function OntarioMapPage() {
               style={{ minHeight: '800px' }}
               preserveAspectRatio="xMidYMid meet"
             >
-              {/* Accurate Ontario Province Shape */}
+              {/* Accurate Ontario Province Shape - Based on actual geography */}
+              {/* Main body - wide in south, narrower in north */}
               <path
-                d="M 5 5
-                   L 8 4 L 12 3 L 15 2.5 L 18 2 L 20 1.5 L 22 1 L 25 0.5 L 28 0 L 32 0 L 35 0.5 L 38 1 L 42 1.5 L 45 2 L 48 2.5 L 52 3 L 55 3.5 L 58 4 L 62 4.5 L 65 5 L 68 5.5 L 72 6 L 75 6.5 L 78 7 L 82 7.5 L 85 8 L 88 8.5 L 92 9 L 95 9.5 L 98 10 L 100 10.5
-                   L 100 12
-                   L 99 14 L 98 16 L 97 18 L 96 20 L 95 22 L 94 24 L 93 26 L 92 28 L 91 30 L 90 32 L 89 34 L 88 36 L 87 38 L 86 40 L 85 42 L 84 44 L 83 46 L 82 48 L 81 50 L 80 52 L 79 54 L 78 56 L 77 58 L 76 60 L 75 62 L 74 64 L 73 66 L 72 68 L 71 70 L 70 72 L 69 74 L 68 76 L 67 78 L 66 80 L 65 82 L 64 84 L 63 86 L 62 88 L 61 90 L 60 92 L 59 94 L 58 96 L 57 98 L 56 99 L 54 100
-                   L 52 100
-                   L 50 99 L 48 98 L 46 97 L 44 96 L 42 95 L 40 94 L 38 93 L 36 92 L 34 91 L 32 90 L 30 89 L 28 88 L 26 87 L 24 86 L 22 85 L 20 84 L 18 83 L 16 82 L 14 81 L 12 80 L 10 79 L 8 78 L 6 77 L 4 76 L 2 75 L 1 73 L 0 71
-                   L 0 69
-                   L 0.5 67 L 1 65 L 2 63 L 3 61 L 4 59 L 5 57 L 6 55 L 7 53 L 8 51 L 9 49 L 10 47 L 11 45 L 12 43 L 13 41 L 14 39 L 15 37 L 16 35 L 17 33 L 18 31 L 19 29 L 20 27 L 21 25 L 22 23 L 23 21 L 24 19 L 25 17 L 26 15 L 27 13 L 28 11 L 29 9 L 30 7 L 31 5 L 32 3 L 33 1 L 34 0
-                   L 32 0
-                   L 30 0.5 L 28 1 L 26 1.5 L 24 2 L 22 2.5 L 20 3 L 18 3.5 L 16 4 L 14 4.5 L 12 5 L 10 5.5 L 8 6 L 6 6.5 L 4 7 L 2 7.5 L 1 8 L 0 9
+                d="M 8 2
+                   L 12 1.5 L 16 1 L 20 0.5 L 25 0 L 30 0 L 35 0 L 40 0 L 45 0 L 50 0 L 55 0 L 60 0 L 65 0 L 70 0 L 75 0 L 80 0 L 85 0 L 90 0 L 95 0 L 98 0.5 L 100 1
+                   L 100 3
+                   L 99 5 L 98 7 L 97 9 L 96 11 L 95 13 L 94 15 L 93 17 L 92 19 L 91 21 L 90 23 L 89 25 L 88 27 L 87 29 L 86 31 L 85 33 L 84 35 L 83 37 L 82 39 L 81 41 L 80 43 L 79 45 L 78 47 L 77 49 L 76 51 L 75 53 L 74 55 L 73 57 L 72 59 L 71 61 L 70 63 L 69 65 L 68 67 L 67 69 L 66 71 L 65 73 L 64 75 L 63 77 L 62 79 L 61 81 L 60 83 L 59 85 L 58 87 L 57 89 L 56 91 L 55 93 L 54 95 L 53 97 L 52 99 L 50 100
+                   L 48 100
+                   L 46 99 L 44 98 L 42 97 L 40 96 L 38 95 L 36 94 L 34 93 L 32 92 L 30 91 L 28 90 L 26 89 L 24 88 L 22 87 L 20 86 L 18 85 L 16 84 L 14 83 L 12 82 L 10 81 L 8 80 L 6 79 L 4 78 L 2 77 L 1 75 L 0 73
+                   L 0 71
+                   L 0.5 69 L 1 67 L 2 65 L 3 63 L 4 61 L 5 59 L 6 57 L 7 55 L 8 53 L 9 51 L 10 49 L 11 47 L 12 45 L 13 43 L 14 41 L 15 39 L 16 37 L 17 35 L 18 33 L 19 31 L 20 29 L 21 27 L 22 25 L 23 23 L 24 21 L 25 19 L 26 17 L 27 15 L 28 13 L 29 11 L 30 9 L 31 7 L 32 5 L 33 3 L 34 1 L 35 0.5 L 36 0
+                   L 34 0
+                   L 32 0.5 L 30 1 L 28 1.5 L 26 2 L 24 2.5 L 22 3 L 20 3.5 L 18 4 L 16 4.5 L 14 5 L 12 5.5 L 10 6 L 8 6.5 L 6 7 L 4 7.5 L 2 8 L 1 9 L 0 10
                    Z"
                 fill="rgba(99, 102, 241, 0.25)"
                 stroke="rgba(139, 92, 246, 0.8)"
                 strokeWidth="0.6"
               />
               
-              {/* Northern Peninsula Extension */}
+              {/* Northern extension - narrower top */}
               <path
-                d="M 10 5
-                   L 12 4 L 14 3 L 16 2.5 L 18 2 L 20 1.5 L 22 1 L 24 0.5 L 26 0 L 28 0 L 30 0.5 L 32 1 L 34 1.5 L 36 2 L 38 2.5 L 40 3 L 42 3.5 L 44 4 L 46 4.5 L 48 5 L 50 5.5 L 52 6 L 54 6.5 L 56 7 L 58 7.5 L 60 8 L 62 8.5 L 64 9 L 66 9.5 L 68 10 L 70 10.5 L 72 11 L 74 11.5 L 76 12 L 78 12.5 L 80 13 L 82 13.5 L 84 14 L 86 14.5 L 88 15 L 90 15.5 L 92 16 L 94 16.5 L 96 17 L 98 17.5 L 100 18
-                   L 100 20
-                   L 98 22 L 96 24 L 94 26 L 92 28 L 90 30 L 88 32 L 86 34 L 84 36 L 82 38 L 80 40 L 78 42 L 76 44 L 74 46 L 72 48 L 70 50 L 68 52 L 66 54 L 64 56 L 62 58 L 60 60 L 58 62 L 56 64 L 54 66 L 52 68 L 50 70 L 48 72 L 46 74 L 44 76 L 42 78 L 40 80 L 38 82 L 36 84 L 34 86 L 32 88 L 30 90 L 28 92 L 26 94 L 24 96 L 22 98 L 20 99 L 18 100
-                   L 16 100
-                   L 14 99 L 12 98 L 10 97 L 8 96 L 6 95 L 4 94 L 2 93 L 1 91 L 0 89
-                   L 0 87
-                   L 0.5 85 L 1 83 L 2 81 L 3 79 L 4 77 L 5 75 L 6 73 L 7 71 L 8 69 L 9 67 L 10 65 L 11 63 L 12 61 L 13 59 L 14 57 L 15 55 L 16 53 L 17 51 L 18 49 L 19 47 L 20 45 L 21 43 L 22 41 L 23 39 L 24 37 L 25 35 L 26 33 L 27 31 L 28 29 L 29 27 L 30 25 L 31 23 L 32 21 L 33 19 L 34 17 L 35 15 L 36 13 L 37 11 L 38 9 L 39 7 L 40 5
+                d="M 15 0
+                   L 20 0 L 25 0 L 30 0 L 35 0 L 40 0 L 45 0 L 50 0 L 55 0 L 60 0 L 65 0 L 70 0 L 75 0 L 80 0 L 85 0 L 90 0 L 95 0 L 100 0
+                   L 100 2
+                   L 98 4 L 96 6 L 94 8 L 92 10 L 90 12 L 88 14 L 86 16 L 84 18 L 82 20 L 80 22 L 78 24 L 76 26 L 74 28 L 72 30 L 70 32 L 68 34 L 66 36 L 64 38 L 62 40 L 60 42 L 58 44 L 56 46 L 54 48 L 52 50 L 50 52 L 48 54 L 46 56 L 44 58 L 42 60 L 40 62 L 38 64 L 36 66 L 34 68 L 32 70 L 30 72 L 28 74 L 26 76 L 24 78 L 22 80 L 20 82 L 18 84 L 16 86 L 14 88 L 12 90 L 10 92 L 8 94 L 6 96 L 4 98 L 2 99 L 0 100
+                   L 0 98
+                   L 1 96 L 2 94 L 3 92 L 4 90 L 5 88 L 6 86 L 7 84 L 8 82 L 9 80 L 10 78 L 11 76 L 12 74 L 13 72 L 14 70 L 15 68 L 16 66 L 17 64 L 18 62 L 19 60 L 20 58 L 21 56 L 22 54 L 23 52 L 24 50 L 25 48 L 26 46 L 27 44 L 28 42 L 29 40 L 30 38 L 31 36 L 32 34 L 33 32 L 34 30 L 35 28 L 36 26 L 37 24 L 38 22 L 39 20 L 40 18 L 41 16 L 42 14 L 43 12 L 44 10 L 45 8 L 46 6 L 47 4 L 48 2 L 49 0
                    Z"
                 fill="rgba(99, 102, 241, 0.25)"
                 stroke="rgba(139, 92, 246, 0.8)"
                 strokeWidth="0.6"
               />
               
-              {/* Lake Superior - Northwest (creates indentation) */}
-              <ellipse cx="12" cy="15" rx="6" ry="10" fill="rgba(59, 130, 246, 0.35)" stroke="rgba(59, 130, 246, 0.7)" strokeWidth="0.4" />
+              {/* Lake Superior - creates northwest indentation */}
+              <ellipse cx="10" cy="12" rx="7" ry="12" fill="rgba(59, 130, 246, 0.4)" stroke="rgba(59, 130, 246, 0.8)" strokeWidth="0.5" />
               
-              {/* Lake Huron - Center (large indentation) */}
-              <ellipse cx="42" cy="42" rx="12" ry="18" fill="rgba(59, 130, 246, 0.35)" stroke="rgba(59, 130, 246, 0.7)" strokeWidth="0.4" />
+              {/* Lake Huron - large center indentation */}
+              <ellipse cx="40" cy="40" rx="14" ry="20" fill="rgba(59, 130, 246, 0.4)" stroke="rgba(59, 130, 246, 0.8)" strokeWidth="0.5" />
               
-              {/* Georgian Bay - Northeast of Lake Huron */}
-              <ellipse cx="46" cy="38" rx="7" ry="12" fill="rgba(59, 130, 246, 0.35)" stroke="rgba(59, 130, 246, 0.7)" strokeWidth="0.4" />
+              {/* Georgian Bay - northeast extension */}
+              <ellipse cx="45" cy="35" rx="8" ry="14" fill="rgba(59, 130, 246, 0.4)" stroke="rgba(59, 130, 246, 0.8)" strokeWidth="0.5" />
               
-              {/* Lake Erie - South (creates southern border) */}
-              <ellipse cx="36" cy="70" rx="14" ry="6" fill="rgba(59, 130, 246, 0.35)" stroke="rgba(59, 130, 246, 0.7)" strokeWidth="0.4" />
+              {/* Lake Erie - southern border */}
+              <ellipse cx="34" cy="68" rx="16" ry="7" fill="rgba(59, 130, 246, 0.4)" stroke="rgba(59, 130, 246, 0.8)" strokeWidth="0.5" />
               
-              {/* Lake Ontario - Southeast */}
-              <ellipse cx="52" cy="60" rx="9" ry="6" fill="rgba(59, 130, 246, 0.35)" stroke="rgba(59, 130, 246, 0.7)" strokeWidth="0.4" />
+              {/* Lake Ontario - southeast */}
+              <ellipse cx="50" cy="58" rx="10" ry="7" fill="rgba(59, 130, 246, 0.4)" stroke="rgba(59, 130, 246, 0.8)" strokeWidth="0.5" />
 
               {/* City markers */}
               {cities.map((city, index) => {
