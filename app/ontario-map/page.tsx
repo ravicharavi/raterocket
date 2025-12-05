@@ -14,33 +14,55 @@ interface CityData {
 export default function OntarioMapPage() {
   const [hoveredCity, setHoveredCity] = useState<CityData | null>(null)
 
-  // Mock premium data for Ontario cities (in CAD per year)
+  // Real premium data from MyChoice.ca (2025 data in CAD per year)
   const cities: CityData[] = [
-    { name: 'Toronto', x: 50, y: 30, premium: 3200, region: 'GTA' },
-    { name: 'Mississauga', x: 48, y: 32, premium: 3100, region: 'GTA' },
-    { name: 'Brampton', x: 47, y: 31, premium: 3300, region: 'GTA' },
-    { name: 'Hamilton', x: 45, y: 35, premium: 2800, region: 'Golden Horseshoe' },
-    { name: 'Ottawa', x: 55, y: 25, premium: 2400, region: 'Eastern Ontario' },
-    { name: 'London', x: 42, y: 40, premium: 2200, region: 'Southwestern Ontario' },
-    { name: 'Kitchener', x: 44, y: 33, premium: 2600, region: 'Waterloo Region' },
-    { name: 'Windsor', x: 38, y: 45, premium: 2900, region: 'Southwestern Ontario' },
-    { name: 'Oshawa', x: 51, y: 28, premium: 3000, region: 'Durham Region' },
-    { name: 'St. Catharines', x: 43, y: 37, premium: 2700, region: 'Niagara Region' },
-    { name: 'Barrie', x: 49, y: 22, premium: 2500, region: 'Simcoe County' },
-    { name: 'Guelph', x: 45, y: 34, premium: 2400, region: 'Wellington County' },
-    { name: 'Cambridge', x: 44, y: 34, premium: 2600, region: 'Waterloo Region' },
-    { name: 'Thunder Bay', x: 20, y: 15, premium: 2100, region: 'Northwestern Ontario' },
-    { name: 'Sudbury', x: 35, y: 20, premium: 2300, region: 'Northeastern Ontario' },
-    { name: 'Kingston', x: 52, y: 30, premium: 2200, region: 'Eastern Ontario' },
-    { name: 'Waterloo', x: 44, y: 33, premium: 2500, region: 'Waterloo Region' },
-    { name: 'Burlington', x: 46, y: 34, premium: 2800, region: 'Halton Region' },
-    { name: 'Oakville', x: 47, y: 33, premium: 2900, region: 'Halton Region' },
-    { name: 'Sault Ste. Marie', x: 15, y: 18, premium: 2000, region: 'Northern Ontario' },
-    { name: 'Peterborough', x: 50, y: 28, premium: 2300, region: 'Kawartha Lakes' },
-    { name: 'Sarnia', x: 40, y: 42, premium: 2400, region: 'Lambton County' },
-    { name: 'Belleville', x: 51, y: 29, premium: 2250, region: 'Quinte Region' },
-    { name: 'North Bay', x: 32, y: 18, premium: 2100, region: 'Nipissing District' },
-    { name: 'Cornwall', x: 58, y: 28, premium: 2150, region: 'Eastern Ontario' },
+    { name: 'Brampton', x: 42, y: 58, premium: 3341, region: 'GTA' },
+    { name: 'Scarborough', x: 48, y: 55, premium: 2881, region: 'GTA' },
+    { name: 'Vaughan', x: 45, y: 56, premium: 2451, region: 'GTA' },
+    { name: 'Richmond Hill', x: 46, y: 56, premium: 2309, region: 'GTA' },
+    { name: 'Mississauga', x: 43, y: 57, premium: 2258, region: 'GTA' },
+    { name: 'Etobicoke', x: 44, y: 56, premium: 2255, region: 'GTA' },
+    { name: 'Toronto', x: 47, y: 56, premium: 2231, region: 'GTA' },
+    { name: 'Innisfil', x: 45, y: 52, premium: 2216, region: 'Simcoe County' },
+    { name: 'Markham', x: 47, y: 57, premium: 2163, region: 'GTA' },
+    { name: 'Newmarket', x: 46, y: 54, premium: 2066, region: 'York Region' },
+    { name: 'Aurora', x: 46, y: 55, premium: 2023, region: 'York Region' },
+    { name: 'London', x: 38, y: 62, premium: 1987, region: 'Southwestern Ontario' },
+    { name: 'Oshawa', x: 50, y: 54, premium: 1974, region: 'Durham Region' },
+    { name: 'Thunder Bay', x: 15, y: 25, premium: 1926, region: 'Northwestern Ontario' },
+    { name: 'Barrie', x: 45, y: 51, premium: 1915, region: 'Simcoe County' },
+    { name: 'Chatham', x: 35, y: 65, premium: 1913, region: 'Chatham-Kent' },
+    { name: 'Cambridge', x: 41, y: 59, premium: 1894, region: 'Waterloo Region' },
+    { name: 'Windsor', x: 32, y: 68, premium: 1891, region: 'Southwestern Ontario' },
+    { name: 'Bradford', x: 45, y: 53, premium: 1871, region: 'Simcoe County' },
+    { name: 'Orangeville', x: 43, y: 55, premium: 1849, region: 'Dufferin County' },
+    { name: 'Milton', x: 42, y: 58, premium: 1824, region: 'Halton Region' },
+    { name: 'Oakville', x: 43, y: 58, premium: 1809, region: 'Halton Region' },
+    { name: 'Collingwood', x: 44, y: 50, premium: 1778, region: 'Grey County' },
+    { name: 'Brantford', x: 40, y: 60, premium: 1769, region: 'Brant County' },
+    { name: 'Niagara Falls', x: 40, y: 65, premium: 1767, region: 'Niagara Region' },
+    { name: 'Kitchener', x: 41, y: 59, premium: 1748, region: 'Waterloo Region' },
+    { name: 'Sault Ste. Marie', x: 12, y: 30, premium: 1747, region: 'Northern Ontario' },
+    { name: 'St. Catharines', x: 40, y: 64, premium: 1741, region: 'Niagara Region' },
+    { name: 'Waterloo', x: 41, y: 59, premium: 1737, region: 'Waterloo Region' },
+    { name: 'Hamilton', x: 40, y: 61, premium: 1735, region: 'Golden Horseshoe' },
+    { name: 'Guelph', x: 42, y: 59, premium: 1729, region: 'Wellington County' },
+    { name: 'Burlington', x: 42, y: 60, premium: 1704, region: 'Halton Region' },
+    { name: 'Sudbury', x: 28, y: 28, premium: 1698, region: 'Northeastern Ontario' },
+    { name: 'North Bay', x: 30, y: 32, premium: 1672, region: 'Nipissing District' },
+    { name: 'Orillia', x: 44, y: 50, premium: 1672, region: 'Simcoe County' },
+    { name: 'Welland', x: 40, y: 65, premium: 1660, region: 'Niagara Region' },
+    { name: 'Belleville', x: 50, y: 50, premium: 1652, region: 'Quinte Region' },
+    { name: 'Midland', x: 44, y: 49, premium: 1628, region: 'Simcoe County' },
+    { name: 'Huntsville', x: 43, y: 45, premium: 1624, region: 'Muskoka' },
+    { name: 'Timmins', x: 25, y: 20, premium: 1607, region: 'Northeastern Ontario' },
+    { name: 'Stratford', x: 39, y: 60, premium: 1604, region: 'Perth County' },
+    { name: 'Sarnia', x: 36, y: 64, premium: 1603, region: 'Lambton County' },
+    { name: 'Peterborough', x: 49, y: 52, premium: 1584, region: 'Kawartha Lakes' },
+    { name: 'Kingston', x: 52, y: 48, premium: 1581, region: 'Eastern Ontario' },
+    { name: 'Ottawa', x: 55, y: 42, premium: 1560, region: 'Eastern Ontario' },
+    { name: 'Brockville', x: 54, y: 46, premium: 1529, region: 'Eastern Ontario' },
+    { name: 'Cornwall', x: 58, y: 45, premium: 1381, region: 'Eastern Ontario' },
   ]
 
   // Calculate premium range for color coding
@@ -107,6 +129,8 @@ export default function OntarioMapPage() {
             Explore auto insurance premiums across Ontario. Hover over cities to see average annual rates.
             <br />
             <span className="text-yellow-300">Green = Lowest Premiums</span> → <span className="text-red-400">Red = Highest Premiums</span>
+            <br />
+            <span className="text-sm text-purple-300 mt-2 block">Data sourced from MyChoice.ca 2025 average rates</span>
           </p>
         </div>
 
@@ -131,23 +155,43 @@ export default function OntarioMapPage() {
         {/* Map Container */}
         <div className="bg-slate-900/80 backdrop-blur-md border-2 border-purple-500/30 rounded-2xl p-8 shadow-2xl relative overflow-hidden">
           {/* Ontario Map SVG */}
-          <div className="relative" style={{ height: '600px', width: '100%' }}>
+          <div className="relative" style={{ height: '800px', width: '100%' }}>
             <svg
               viewBox="0 0 100 100"
               className="w-full h-full"
-              style={{ minHeight: '600px' }}
+              style={{ minHeight: '800px' }}
+              preserveAspectRatio="xMidYMid meet"
             >
-              {/* Simplified Ontario outline */}
+              {/* Ontario Province Outline - More Accurate Shape */}
               <path
-                d="M 20 15 L 25 12 L 30 10 L 35 8 L 40 7 L 45 8 L 50 10 L 55 12 L 60 15 L 62 18 L 63 22 L 64 28 L 65 35 L 64 40 L 63 45 L 60 48 L 58 50 L 55 52 L 50 53 L 45 52 L 40 50 L 38 48 L 35 45 L 32 40 L 30 35 L 28 30 L 25 25 L 22 20 Z"
-                fill="rgba(99, 102, 241, 0.1)"
-                stroke="rgba(139, 92, 246, 0.5)"
-                strokeWidth="0.5"
+                d="M 10 25 L 12 22 L 15 20 L 18 18 L 22 17 L 25 16 L 28 15 L 30 14 L 32 15 L 35 16 L 38 18 L 40 20 L 42 22 L 44 25 L 45 28 L 46 32 L 47 35 L 48 38 L 49 42 L 50 45 L 51 48 L 52 50 L 54 52 L 56 54 L 58 56 L 60 58 L 62 60 L 64 62 L 65 64 L 66 66 L 67 68 L 68 70 L 68 72 L 67 74 L 65 75 L 62 76 L 58 77 L 55 78 L 52 78 L 50 77 L 48 76 L 46 75 L 44 73 L 42 71 L 40 69 L 38 67 L 36 65 L 34 63 L 32 61 L 30 59 L 28 57 L 26 55 L 24 52 L 22 49 L 20 46 L 18 43 L 16 40 L 14 37 L 12 34 L 11 30 L 10 27 Z"
+                fill="rgba(99, 102, 241, 0.15)"
+                stroke="rgba(139, 92, 246, 0.6)"
+                strokeWidth="0.4"
               />
               
-              {/* Great Lakes representation */}
-              <ellipse cx="45" cy="42" rx="8" ry="5" fill="rgba(59, 130, 246, 0.2)" stroke="rgba(59, 130, 246, 0.4)" strokeWidth="0.3" />
-              <ellipse cx="38" cy="45" rx="6" ry="4" fill="rgba(59, 130, 246, 0.2)" stroke="rgba(59, 130, 246, 0.4)" strokeWidth="0.3" />
+              {/* Additional Ontario shape details - Northern Peninsula */}
+              <path
+                d="M 12 30 L 15 28 L 18 26 L 20 24 L 22 22 L 25 20 L 28 19 L 30 18 L 28 16 L 25 15 L 22 16 L 20 18 L 18 20 L 15 22 L 12 25 Z"
+                fill="rgba(99, 102, 241, 0.15)"
+                stroke="rgba(139, 92, 246, 0.6)"
+                strokeWidth="0.4"
+              />
+              
+              {/* Lake Superior */}
+              <ellipse cx="15" cy="28" rx="4" ry="6" fill="rgba(59, 130, 246, 0.25)" stroke="rgba(59, 130, 246, 0.5)" strokeWidth="0.3" />
+              
+              {/* Lake Huron */}
+              <ellipse cx="42" cy="48" rx="8" ry="12" fill="rgba(59, 130, 246, 0.25)" stroke="rgba(59, 130, 246, 0.5)" strokeWidth="0.3" />
+              
+              {/* Lake Erie */}
+              <ellipse cx="38" cy="68" rx="10" ry="4" fill="rgba(59, 130, 246, 0.25)" stroke="rgba(59, 130, 246, 0.5)" strokeWidth="0.3" />
+              
+              {/* Lake Ontario */}
+              <ellipse cx="48" cy="58" rx="6" ry="4" fill="rgba(59, 130, 246, 0.25)" stroke="rgba(59, 130, 246, 0.5)" strokeWidth="0.3" />
+              
+              {/* Georgian Bay */}
+              <ellipse cx="44" cy="48" rx="5" ry="8" fill="rgba(59, 130, 246, 0.25)" stroke="rgba(59, 130, 246, 0.5)" strokeWidth="0.3" />
 
               {/* City markers */}
               {cities.map((city, index) => {
@@ -156,16 +200,34 @@ export default function OntarioMapPage() {
                 
                 return (
                   <g key={index}>
+                    {/* Outer glow ring for hover */}
+                    {isHovered && (
+                      <circle
+                        cx={city.x}
+                        cy={city.y}
+                        r="3.5"
+                        fill="none"
+                        stroke={color}
+                        strokeWidth="0.3"
+                        opacity="0.6"
+                        style={{
+                          animation: 'pulse 2s infinite',
+                        }}
+                      />
+                    )}
+                    
                     {/* City circle */}
                     <circle
                       cx={city.x}
                       cy={city.y}
-                      r={isHovered ? 2.5 : 1.8}
+                      r={isHovered ? 2.8 : 2}
                       fill={color}
                       stroke="white"
-                      strokeWidth={isHovered ? 0.4 : 0.2}
+                      strokeWidth={isHovered ? 0.5 : 0.3}
                       style={{
-                        filter: isHovered ? 'drop-shadow(0 0 8px rgba(255,255,255,0.8))' : 'none',
+                        filter: isHovered 
+                          ? `drop-shadow(0 0 10px ${color}) drop-shadow(0 0 5px rgba(255,255,255,0.8))` 
+                          : `drop-shadow(0 0 3px ${color})`,
                         transition: 'all 0.3s ease',
                         cursor: 'pointer',
                       }}
@@ -173,44 +235,32 @@ export default function OntarioMapPage() {
                       onMouseLeave={() => setHoveredCity(null)}
                     />
                     
-                    {/* City label (show on hover) */}
-                    {isHovered && (
-                      <g>
-                        <rect
-                          x={city.x + 2}
-                          y={city.y - 4}
-                          width="20"
-                          height="6"
-                          fill="rgba(15, 23, 42, 0.95)"
-                          stroke={color}
-                          strokeWidth="0.3"
-                          rx="1"
-                        />
-                        <text
-                          x={city.x + 12}
-                          y={city.y - 0.5}
-                          fill="white"
-                          fontSize="2.5"
-                          textAnchor="middle"
-                          fontWeight="bold"
-                        >
-                          {city.name}
-                        </text>
-                        <text
-                          x={city.x + 12}
-                          y={city.y + 2}
-                          fill={color}
-                          fontSize="2"
-                          textAnchor="middle"
-                          fontWeight="bold"
-                        >
-                          ${city.premium.toLocaleString()}/yr
-                        </text>
-                      </g>
-                    )}
+                    {/* City name label (always visible, smaller) */}
+                    <text
+                      x={city.x}
+                      y={city.y - 3.5}
+                      fill="rgba(255, 255, 255, 0.7)"
+                      fontSize="1.8"
+                      textAnchor="middle"
+                      fontWeight="500"
+                      style={{
+                        pointerEvents: 'none',
+                        textShadow: '0 1px 2px rgba(0,0,0,0.8)',
+                      }}
+                    >
+                      {city.name.length > 10 ? city.name.substring(0, 10) + '...' : city.name}
+                    </text>
                   </g>
                 )
               })}
+              
+              {/* Add CSS animation for pulse */}
+              <style>{`
+                @keyframes pulse {
+                  0%, 100% { opacity: 0.6; transform: scale(1); }
+                  50% { opacity: 1; transform: scale(1.2); }
+                }
+              `}</style>
             </svg>
 
             {/* Hover Info Panel */}
@@ -218,11 +268,11 @@ export default function OntarioMapPage() {
               <div
                 className="absolute bg-slate-900/95 backdrop-blur-md border-2 border-purple-500/50 rounded-xl p-6 shadow-2xl"
                 style={{
-                  top: `${(hoveredCity.y / 100) * 600}px`,
+                  top: `${(hoveredCity.y / 100) * 800}px`,
                   left: `${(hoveredCity.x / 100) * 100}%`,
                   transform: 'translate(-50%, -100%)',
                   marginTop: '-20px',
-                  minWidth: '250px',
+                  minWidth: '280px',
                   zIndex: 1000,
                 }}
               >
@@ -250,6 +300,9 @@ export default function OntarioMapPage() {
                 <div className="mt-4 pt-4 border-t border-purple-500/30">
                   <p className="text-purple-200 text-xs">
                     💡 Premiums vary based on location, driving history, and coverage level
+                  </p>
+                  <p className="text-purple-300 text-xs mt-2">
+                    📊 Source: MyChoice.ca 2025 Average Rates
                   </p>
                 </div>
               </div>
