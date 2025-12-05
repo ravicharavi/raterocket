@@ -11,7 +11,10 @@ const Marker = dynamic(() => import('react-leaflet').then(mod => mod.Marker), { 
 const Popup = dynamic(() => import('react-leaflet').then(mod => mod.Popup), { ssr: false })
 
 // Import Leaflet CSS
-import 'leaflet/dist/leaflet.css'
+// Import Leaflet CSS - only on client side
+if (typeof window !== 'undefined') {
+  require('leaflet/dist/leaflet.css')
+}
 
 interface CityData {
   name: string
