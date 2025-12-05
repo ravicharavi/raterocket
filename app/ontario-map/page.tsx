@@ -1,36 +1,73 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import dynamic from 'next/dynamic'
+
+// Dynamically import MapContainer to avoid SSR issues
+const MapContainer = dynamic(
+  () => import('react-leaflet').then((mod) => mod.MapContainer),
+  { ssr: false }
+) as any
+const TileLayer = dynamic(
+  () => import('react-leaflet').then((mod) => mod.TileLayer),
+  { ssr: false }
+) as any
+const Marker = dynamic(
+  () => import('react-leaflet').then((mod) => mod.Marker),
+  { ssr: false }
+) as any
+const Popup = dynamic(
+  () => import('react-leaflet').then((mod) => mod.Popup),
+  { ssr: false }
+) as any
+
+// Import Leaflet CSS - only on client side
+if (typeof window !== 'undefined') {
+  require('leaflet/dist/leaflet.css')
+}
 
 interface CityData {
   name: string
-  x: number
-  y: number
+  lat: number
+  lng: number
   premium: number
   region: string
 }
 
 export default function OntarioMapPage() {
   const [hoveredCity, setHoveredCity] = useState<CityData | null>(null)
-  const [zoom, setZoom] = useState(1)
+  const [lastUpdated, setLastUpdated] = useState<string>('')
+
+  // Set dynamic timestamp on mount
+  useEffect(() => {
+    const now = new Date()
+    const options: Intl.DateTimeFormatOptions = {
+      month: 'long',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: '2-digit',
+      hour12: true,
+    }
+    setLastUpdated(now.toLocaleString('en-US', options))
+  }, [])
 
   // Premium data from rates.ca (2025 data in CAD per year)
   // Source: https://rates.ca/insurance-quotes/auto/ontario
   const cities: CityData[] = [
-    { name: 'Brampton', x: 42, y: 58, premium: 3848, region: 'GTA' },
-    { name: 'Scarborough', x: 48, y: 55, premium: 3643, region: 'GTA' },
-    { name: 'North York', x: 47, y: 56, premium: 3570, region: 'GTA' },
-    { name: 'Mississauga', x: 43, y: 57, premium: 3498, region: 'GTA' },
-    { name: 'Etobicoke', x: 44, y: 56, premium: 3490, region: 'GTA' },
-    { name: 'Markham', x: 47, y: 57, premium: 3477, region: 'GTA' },
-    { name: 'Vaughan', x: 45, y: 56, premium: 3317, region: 'GTA' },
-    { name: 'Oshawa', x: 50, y: 54, premium: 3075, region: 'Durham Region' },
-    { name: 'Toronto', x: 47, y: 56, premium: 2800, region: 'GTA' },
-    { name: 'London', x: 38, y: 62, premium: 2550, region: 'Southwestern Ontario' },
-    { name: 'Ottawa', x: 55, y: 42, premium: 1780, region: 'Eastern Ontario' },
-    { name: 'Kingston', x: 52, y: 48, premium: 1750, region: 'Eastern Ontario' },
-    { name: 'Brockville', x: 54, y: 46, premium: 1756, region: 'Eastern Ontario' },
+    { name: 'Brampton', lat: 43.7315, lng: -79.7624, premium: 3848, region: 'GTA' },
+    { name: 'Scarborough', lat: 43.7731, lng: -79.2577, premium: 3643, region: 'GTA' },
+    { name: 'North York', lat: 43.7615, lng: -79.4111, premium: 3570, region: 'GTA' },
+    { name: 'Mississauga', lat: 43.5890, lng: -79.6441, premium: 3498, region: 'GTA' },
+    { name: 'Etobicoke', lat: 43.6532, lng: -79.5329, premium: 3490, region: 'GTA' },
+    { name: 'Markham', lat: 43.8561, lng: -79.3370, premium: 3477, region: 'GTA' },
+    { name: 'Vaughan', lat: 43.8563, lng: -79.5085, premium: 3317, region: 'GTA' },
+    { name: 'Oshawa', lat: 43.8971, lng: -78.8658, premium: 3075, region: 'Durham Region' },
+    { name: 'Toronto', lat: 43.6532, lng: -79.3832, premium: 2800, region: 'GTA' },
+    { name: 'London', lat: 42.9849, lng: -81.2453, premium: 2550, region: 'Southwestern Ontario' },
+    { name: 'Ottawa', lat: 45.4215, lng: -75.6972, premium: 1780, region: 'Eastern Ontario' },
+    { name: 'Kingston', lat: 44.2312, lng: -76.4860, premium: 1750, region: 'Eastern Ontario' },
+    { name: 'Brockville', lat: 44.5897, lng: -75.6883, premium: 1756, region: 'Eastern Ontario' },
   ]
 
   // Calculate premium range for color coding
@@ -54,16 +91,18 @@ export default function OntarioMapPage() {
     }
   }
 
-  const handleZoomIn = () => {
-    setZoom(prev => Math.min(prev + 0.2, 3))
-  }
-
-  const handleZoomOut = () => {
-    setZoom(prev => Math.max(prev - 0.2, 0.5))
-  }
-
-  const handleResetZoom = () => {
-    setZoom(1)
+  // Create custom icon for markers
+  const createCustomIcon = (color: string) => {
+    if (typeof window !== 'undefined') {
+      const L = require('leaflet')
+      return L.divIcon({
+        className: 'custom-marker',
+        html: `<div style="background-color: ${color}; width: 20px; height: 20px; border-radius: 50%; border: 3px solid white; box-shadow: 0 2px 4px rgba(0,0,0,0.3);"></div>`,
+        iconSize: [20, 20],
+        iconAnchor: [10, 10],
+      })
+    }
+    return null
   }
 
   return (
@@ -99,101 +138,74 @@ export default function OntarioMapPage() {
             </a>
           </p>
           <p className="text-purple-300 text-sm mt-2">
-            Last updated: December 5th, 2:00 PM
+            Last updated: {lastUpdated || 'Loading...'}
           </p>
         </div>
 
-        {/* Zoom Controls */}
-        <div className="bg-slate-800 rounded-xl p-4 mb-4 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <span className="text-purple-200 font-semibold">🔍 Zoom:</span>
-            <span className="text-purple-300 font-bold">{(zoom * 100).toFixed(0)}%</span>
-          </div>
-          <div className="flex gap-2">
-            <button
-              onClick={handleZoomOut}
-              className="bg-red-600 hover:bg-red-500 text-white px-4 py-2 rounded-lg font-semibold disabled:opacity-50 disabled:cursor-not-allowed transition"
-              disabled={zoom <= 0.5}
-            >
-              ➖ Zoom Out
-            </button>
-            <button
-              onClick={handleResetZoom}
-              className="bg-purple-600 hover:bg-purple-500 text-white px-4 py-2 rounded-lg font-semibold transition"
-            >
-              🔄 Reset
-            </button>
-            <button
-              onClick={handleZoomIn}
-              className="bg-green-600 hover:bg-green-500 text-white px-4 py-2 rounded-lg font-semibold disabled:opacity-50 disabled:cursor-not-allowed transition"
-              disabled={zoom >= 3}
-            >
-              ➕ Zoom In
-            </button>
-          </div>
-        </div>
-
         {/* Map Container */}
-        <div className="bg-slate-800 rounded-xl p-8 mb-8">
-          <div className="relative overflow-hidden" style={{ height: '600px', width: '100%' }}>
-            <div
-              style={{
-                transform: `scale(${zoom})`,
-                transformOrigin: 'center center',
-                width: '100%',
-                height: '100%',
-              }}
-            >
-              <svg
-                viewBox="0 0 100 100"
-                className="w-full h-full"
-                style={{ minHeight: '600px' }}
+        <div className="bg-slate-800 rounded-xl p-4 mb-8 overflow-hidden">
+          <div style={{ height: '600px', width: '100%', borderRadius: '8px', overflow: 'hidden' }}>
+            {typeof window !== 'undefined' && (
+              <MapContainer
+                center={[44.0, -79.5] as [number, number]}
+                zoom={6}
+                style={{ height: '100%', width: '100%', zIndex: 0 }}
+                scrollWheelZoom={true}
               >
+                <TileLayer
+                  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                />
                 {cities.map((city, index) => {
                   const color = getColor(city.premium)
-                  const isHovered = hoveredCity?.name === city.name
+                  const icon = createCustomIcon(color)
                   
                   return (
-                    <g key={index}>
-                      <circle
-                        cx={city.x}
-                        cy={city.y}
-                        r={isHovered ? 3 : 2}
-                        fill={color}
-                        stroke="white"
-                        strokeWidth={isHovered ? 0.5 : 0.3}
-                        style={{ cursor: 'pointer' }}
-                        onMouseEnter={() => setHoveredCity(city)}
-                        onMouseLeave={() => setHoveredCity(null)}
-                      />
-                      <text
-                        x={city.x}
-                        y={city.y - 4}
-                        fill="white"
-                        fontSize="2"
-                        textAnchor="middle"
-                        style={{ pointerEvents: 'none' }}
-                      >
-                        {city.name}
-                      </text>
-                    </g>
+                    <Marker
+                      key={index}
+                      position={[city.lat, city.lng] as [number, number]}
+                      icon={icon}
+                      eventHandlers={{
+                        mouseover: () => setHoveredCity(city),
+                        mouseout: () => setHoveredCity(null),
+                      }}
+                    >
+                      <Popup>
+                        <div className="p-2 min-w-[200px]">
+                          <h3 className="font-bold text-lg mb-2">{city.name}</h3>
+                          <p className="text-sm text-gray-600 mb-2">{city.region}</p>
+                          <div className="space-y-1 text-sm">
+                            <p><strong>Premium:</strong> ${city.premium.toLocaleString()}/year</p>
+                          </div>
+                        </div>
+                      </Popup>
+                    </Marker>
                   )
                 })}
-              </svg>
-            </div>
-
-            {/* Hover Info */}
-            {hoveredCity && (
-              <div className="absolute top-4 right-4 bg-slate-900 border border-purple-500 rounded-lg p-4 min-w-[250px]">
-                <h3 className="text-xl font-bold text-white mb-2">{hoveredCity.name}</h3>
-                <p className="text-purple-300 text-sm mb-2">{hoveredCity.region}</p>
-                <p className="text-2xl font-bold text-white">
-                  ${hoveredCity.premium.toLocaleString()}/year
-                </p>
-              </div>
+              </MapContainer>
             )}
           </div>
         </div>
+
+        {/* Hover Info */}
+        {hoveredCity && (
+          <div className="bg-slate-800 rounded-xl p-6 mb-8 border-2 border-purple-500">
+            <div className="flex items-center gap-3 mb-4">
+              <span className="text-3xl">🚗</span>
+              <div>
+                <h3 className="text-2xl font-bold text-white">{hoveredCity.name}</h3>
+                <p className="text-purple-300 text-sm">{hoveredCity.region}</p>
+              </div>
+            </div>
+            <div className="bg-purple-600/20 rounded-lg p-4 border border-purple-500/30">
+              <p className="text-purple-200 text-sm mb-1">Average Annual Premium</p>
+              <p className="text-3xl font-bold text-white">
+                ${hoveredCity.premium.toLocaleString()}
+              </p>
+              <p className="text-purple-300 text-xs mt-1">per year</p>
+            </div>
+          </div>
+        )}
 
         {/* City List */}
         <div className="bg-slate-800 rounded-xl p-8">

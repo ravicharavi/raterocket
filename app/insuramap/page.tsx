@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import dynamic from 'next/dynamic'
 
@@ -51,6 +51,20 @@ export default function InsuraMapPage() {
   const [hoveredCity, setHoveredCity] = useState<CityData | null>(null)
   const [viewMode, setViewMode] = useState<'premium' | 'climate' | 'factors'>('premium')
   const [showInfo, setShowInfo] = useState(false)
+  const [lastUpdated, setLastUpdated] = useState<string>('')
+
+  // Set dynamic timestamp on mount
+  useEffect(() => {
+    const now = new Date()
+    const options: Intl.DateTimeFormatOptions = {
+      month: 'long',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: '2-digit',
+      hour12: true,
+    }
+    setLastUpdated(now.toLocaleString('en-US', options))
+  }, [])
 
   // Home insurance data with actual coordinates for Ontario cities
   const cities: CityData[] = [
@@ -426,7 +440,7 @@ export default function InsuraMapPage() {
             Home Insurance Premiums & Climate Risk Analysis
           </p>
           <p className="text-purple-300 text-sm mb-4">
-            Last updated: December 5th, 2:00 PM
+            Last updated: {lastUpdated || 'Loading...'}
           </p>
           <button
             onClick={() => setShowInfo(!showInfo)}
