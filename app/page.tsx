@@ -396,8 +396,11 @@ export default function Home() {
             <div className="mb-4">
               <DeploymentTimestamp className="text-purple-300 text-sm" />
             </div>
-            <p className="text-purple-300 flex items-center justify-center gap-2">
-              <span>🌌</span> &copy; 2024 RateRocket. All rights reserved. <span>🚀</span>
+            <p className="text-purple-300 flex items-center justify-center gap-2 mb-2">
+              <span>🌌</span> &copy; 2025 RateRocket. All rights reserved. <span>🚀</span>
+            </p>
+            <p className="text-purple-400 text-sm">
+              coded by ravicharavi <3
             </p>
           </div>
         </div>
