@@ -169,33 +169,46 @@ export default function OntarioMapPage() {
           </div>
         </div>
 
-        {/* Zoom Controls */}
-        <div className="bg-slate-900/80 backdrop-blur-md border border-purple-500/30 rounded-xl p-4 mb-4 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <span className="text-purple-200 font-semibold">🔍 Zoom Controls:</span>
-            <span className="text-purple-300 text-sm">{(zoom * 100).toFixed(0)}%</span>
+        {/* Zoom Controls - More Prominent */}
+        <div className="bg-gradient-to-r from-purple-900/90 to-blue-900/90 backdrop-blur-md border-2 border-purple-400/50 rounded-xl p-6 mb-6 shadow-xl">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+            <div className="flex items-center gap-3">
+              <span className="text-3xl">🔍</span>
+              <div>
+                <div className="text-purple-200 font-bold text-lg">Zoom Controls</div>
+                <div className="text-purple-300 text-sm">Current Zoom: <span className="text-yellow-300 font-bold">{(zoom * 100).toFixed(0)}%</span></div>
+              </div>
+            </div>
+            <div className="flex gap-3">
+              <button
+                onClick={handleZoomOut}
+                className="bg-red-600 hover:bg-red-500 text-white px-6 py-3 rounded-lg font-bold text-lg transition shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+                disabled={zoom <= 0.5}
+              >
+                <span className="text-2xl">➖</span>
+                <span>Zoom Out</span>
+              </button>
+              <button
+                onClick={handleResetZoom}
+                className="bg-purple-600 hover:bg-purple-500 text-white px-6 py-3 rounded-lg font-bold text-lg transition shadow-lg hover:shadow-xl flex items-center gap-2"
+              >
+                <span className="text-2xl">🔄</span>
+                <span>Reset</span>
+              </button>
+              <button
+                onClick={handleZoomIn}
+                className="bg-green-600 hover:bg-green-500 text-white px-6 py-3 rounded-lg font-bold text-lg transition shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+                disabled={zoom >= 3}
+              >
+                <span className="text-2xl">➕</span>
+                <span>Zoom In</span>
+              </button>
+            </div>
           </div>
-          <div className="flex gap-2">
-            <button
-              onClick={handleZoomOut}
-              className="bg-purple-600 hover:bg-purple-500 text-white px-4 py-2 rounded-lg font-semibold transition"
-              disabled={zoom <= 0.5}
-            >
-              ➖ Zoom Out
-            </button>
-            <button
-              onClick={handleResetZoom}
-              className="bg-purple-600/50 hover:bg-purple-500/50 text-white px-4 py-2 rounded-lg font-semibold transition"
-            >
-              🔄 Reset
-            </button>
-            <button
-              onClick={handleZoomIn}
-              className="bg-purple-600 hover:bg-purple-500 text-white px-4 py-2 rounded-lg font-semibold transition"
-              disabled={zoom >= 3}
-            >
-              ➕ Zoom In
-            </button>
+          <div className="mt-4 pt-4 border-t border-purple-500/30">
+            <p className="text-purple-200 text-sm text-center">
+              💡 Tip: You can also use your mouse wheel to zoom in and out on the map
+            </p>
           </div>
         </div>
 
