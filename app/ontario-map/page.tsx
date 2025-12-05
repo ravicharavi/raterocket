@@ -123,7 +123,10 @@ export default function OntarioMapPage() {
   }
 
   return (
-    <div className="min-h-screen space-bg relative">
+    <div className="min-h-screen relative" style={{
+      background: 'linear-gradient(to bottom, rgb(15, 23, 42), rgb(30, 41, 59), rgb(15, 23, 42))',
+      backgroundAttachment: 'fixed',
+    }}>
       {/* Floating Planets Background */}
       <div className="absolute top-20 right-10 w-96 h-96 planet opacity-30"></div>
       <div className="absolute bottom-40 left-20 w-64 h-64 planet opacity-20"></div>
