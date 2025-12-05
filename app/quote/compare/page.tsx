@@ -327,9 +327,9 @@ export default function CompareQuotesPage() {
 
         {/* Additional Info */}
         <div className="bg-blue-50 border border-blue-200 rounded-xl p-6">
-          <h3 className="text-xl font-semibold text-gray-900 mb-3">💡 What's Next?</h3>
+          <h3 className="text-xl font-semibold text-gray-900 mb-3">💡 What&apos;s Next?</h3>
           <p className="text-gray-700 mb-4">
-            Once you select a quote, you'll be connected directly with the insurance provider to complete your application. 
+            Once you select a quote, you&apos;ll be connected directly with the insurance provider to complete your application. 
             All quotes are estimates and final pricing may vary based on additional factors.
           </p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
