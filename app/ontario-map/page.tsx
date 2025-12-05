@@ -13,6 +13,9 @@ interface CityData {
 
 export default function OntarioMapPage() {
   const [hoveredCity, setHoveredCity] = useState<CityData | null>(null)
+  const [zoom, setZoom] = useState(1)
+  const [panX, setPanX] = useState(0)
+  const [panY, setPanY] = useState(0)
 
   // Real premium data from MyChoice.ca (2025 data in CAD per year)
   const cities: CityData[] = [
@@ -89,6 +92,20 @@ export default function OntarioMapPage() {
     }
   }
 
+  const handleZoomIn = () => {
+    setZoom(prev => Math.min(prev + 0.2, 3))
+  }
+
+  const handleZoomOut = () => {
+    setZoom(prev => Math.max(prev - 0.2, 0.5))
+  }
+
+  const handleResetZoom = () => {
+    setZoom(1)
+    setPanX(0)
+    setPanY(0)
+  }
+
   return (
     <div className="min-h-screen space-bg relative">
       {/* Floating Planets Background */}
@@ -152,248 +169,152 @@ export default function OntarioMapPage() {
           </div>
         </div>
 
+        {/* Zoom Controls */}
+        <div className="bg-slate-900/80 backdrop-blur-md border border-purple-500/30 rounded-xl p-4 mb-4 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <span className="text-purple-200 font-semibold">🔍 Zoom Controls:</span>
+            <span className="text-purple-300 text-sm">{(zoom * 100).toFixed(0)}%</span>
+          </div>
+          <div className="flex gap-2">
+            <button
+              onClick={handleZoomOut}
+              className="bg-purple-600 hover:bg-purple-500 text-white px-4 py-2 rounded-lg font-semibold transition"
+              disabled={zoom <= 0.5}
+            >
+              ➖ Zoom Out
+            </button>
+            <button
+              onClick={handleResetZoom}
+              className="bg-purple-600/50 hover:bg-purple-500/50 text-white px-4 py-2 rounded-lg font-semibold transition"
+            >
+              🔄 Reset
+            </button>
+            <button
+              onClick={handleZoomIn}
+              className="bg-purple-600 hover:bg-purple-500 text-white px-4 py-2 rounded-lg font-semibold transition"
+              disabled={zoom >= 3}
+            >
+              ➕ Zoom In
+            </button>
+          </div>
+        </div>
+
         {/* Map Container */}
         <div className="bg-slate-900/80 backdrop-blur-md border-2 border-purple-500/30 rounded-2xl p-8 shadow-2xl relative overflow-hidden">
-          {/* Ontario Map SVG */}
-          <div className="relative" style={{ height: '800px', width: '100%' }}>
-            <svg
-              viewBox="0 0 100 100"
-              className="w-full h-full"
-              style={{ minHeight: '800px' }}
-              preserveAspectRatio="xMidYMid meet"
+          {/* Interactive Map Area */}
+          <div 
+            className="relative bg-slate-800/30 rounded-lg"
+            style={{ 
+              height: '800px', 
+              width: '100%',
+              overflow: 'hidden',
+              cursor: 'grab',
+            }}
+            onWheel={(e) => {
+              e.preventDefault()
+              const delta = e.deltaY > 0 ? -0.1 : 0.1
+              setZoom(prev => Math.max(0.5, Math.min(3, prev + delta)))
+            }}
+          >
+            <div
+              style={{
+                transform: `translate(${panX}px, ${panY}px) scale(${zoom})`,
+                transformOrigin: 'center center',
+                transition: 'transform 0.1s ease-out',
+                width: '100%',
+                height: '100%',
+              }}
             >
-              {/* Accurate Ontario Province Shape - Based on actual geographic boundaries */}
-              <path
-                d="M 5 3
-                   C 5 2, 6 1, 8 0.5
-                   C 10 0, 12 0, 15 0
-                   C 18 0, 20 0, 22 0
-                   C 25 0, 28 0, 30 0
-                   C 35 0, 40 0, 45 0
-                   C 50 0, 55 0, 60 0
-                   C 65 0, 70 0, 75 0
-                   C 80 0, 85 0, 90 0
-                   C 92 0, 94 0.5, 96 1
-                   C 98 1.5, 99 2, 100 3
-                   L 100 5
-                   C 99 7, 98 9, 97 11
-                   C 96 13, 95 15, 94 17
-                   C 93 19, 92 21, 91 23
-                   C 90 25, 89 27, 88 29
-                   C 87 31, 86 33, 85 35
-                   C 84 37, 83 39, 82 41
-                   C 81 43, 80 45, 79 47
-                   C 78 49, 77 51, 76 53
-                   C 75 55, 74 57, 73 59
-                   C 72 61, 71 63, 70 65
-                   C 69 67, 68 69, 67 71
-                   C 66 73, 65 75, 64 77
-                   C 63 79, 62 81, 61 83
-                   C 60 85, 59 87, 58 89
-                   C 57 91, 56 93, 55 95
-                   C 54 97, 53 98, 52 99
-                   C 51 99.5, 50 100, 48 100
-                   C 46 100, 44 99, 42 98
-                   C 40 97, 38 96, 36 95
-                   C 34 94, 32 93, 30 92
-                   C 28 91, 26 90, 24 89
-                   C 22 88, 20 87, 18 86
-                   C 16 85, 14 84, 12 83
-                   C 10 82, 8 81, 6 80
-                   C 4 79, 2 78, 1 76
-                   C 0.5 74, 0 72, 0 70
-                   L 0 68
-                   C 0.5 66, 1 64, 2 62
-                   C 3 60, 4 58, 5 56
-                   C 6 54, 7 52, 8 50
-                   C 9 48, 10 46, 11 44
-                   C 12 42, 13 40, 14 38
-                   C 15 36, 16 34, 17 32
-                   C 18 30, 19 28, 20 26
-                   C 21 24, 22 22, 23 20
-                   C 24 18, 25 16, 26 14
-                   C 27 12, 28 10, 29 8
-                   C 30 6, 31 4, 32 2
-                   C 33 1, 34 0.5, 35 0
-                   L 33 0
-                   C 31 0.5, 29 1, 27 1.5
-                   C 25 2, 23 2.5, 21 3
-                   C 19 3.5, 17 4, 15 4.5
-                   C 13 5, 11 5.5, 9 6
-                   C 7 6.5, 5 7, 3 8
-                   C 2 9, 1 10, 0.5 11
-                   C 0 12, 0 13, 0 14
-                   L 0 12
-                   C 0.5 10, 1 8, 2 6
-                   C 3 4, 4 3, 5 3
-                   Z"
-                fill="rgba(99, 102, 241, 0.25)"
-                stroke="rgba(139, 92, 246, 0.8)"
-                strokeWidth="0.6"
-              />
-              
-              {/* Northern Peninsula - narrower extension upward */}
-              <path
-                d="M 20 0
-                   C 22 0, 24 0, 26 0
-                   C 28 0, 30 0, 32 0
-                   C 35 0, 38 0, 40 0
-                   C 42 0, 44 0, 46 0
-                   C 48 0, 50 0, 52 0
-                   C 54 0, 56 0, 58 0
-                   C 60 0, 62 0, 64 0
-                   C 66 0, 68 0, 70 0
-                   C 72 0, 74 0, 76 0
-                   C 78 0, 80 0, 82 0
-                   C 84 0, 86 0, 88 0
-                   C 90 0, 92 0, 94 0
-                   C 96 0, 98 0, 100 0
-                   L 100 2
-                   C 98 4, 96 6, 94 8
-                   C 92 10, 90 12, 88 14
-                   C 86 16, 84 18, 82 20
-                   C 80 22, 78 24, 76 26
-                   C 74 28, 72 30, 70 32
-                   C 68 34, 66 36, 64 38
-                   C 62 40, 60 42, 58 44
-                   C 56 46, 54 48, 52 50
-                   C 50 52, 48 54, 46 56
-                   C 44 58, 42 60, 40 62
-                   C 38 64, 36 66, 34 68
-                   C 32 70, 30 72, 28 74
-                   C 26 76, 24 78, 22 80
-                   C 20 82, 18 84, 16 86
-                   C 14 88, 12 90, 10 92
-                   C 8 94, 6 96, 4 98
-                   C 2 99, 1 99.5, 0 100
-                   L 0 98
-                   C 1 96, 2 94, 3 92
-                   C 4 90, 5 88, 6 86
-                   C 7 84, 8 82, 9 80
-                   C 10 78, 11 76, 12 74
-                   C 13 72, 14 70, 15 68
-                   C 16 66, 17 64, 18 62
-                   C 19 60, 20 58, 21 56
-                   C 22 54, 23 52, 24 50
-                   C 25 48, 26 46, 27 44
-                   C 28 42, 29 40, 30 38
-                   C 31 36, 32 34, 33 32
-                   C 34 30, 35 28, 36 26
-                   C 37 24, 38 22, 39 20
-                   C 40 18, 41 16, 42 14
-                   C 43 12, 44 10, 45 8
-                   C 46 6, 47 4, 48 2
-                   C 49 1, 50 0.5, 51 0
-                   L 48 0
-                   C 46 0, 44 0, 42 0
-                   C 40 0, 38 0, 36 0
-                   C 34 0, 32 0, 30 0
-                   C 28 0, 26 0, 24 0
-                   C 22 0, 20 0, 18 0
-                   Z"
-                fill="rgba(99, 102, 241, 0.25)"
-                stroke="rgba(139, 92, 246, 0.8)"
-                strokeWidth="0.6"
-              />
-              
-              {/* Lake Superior - Northwest (creates indentation in border) */}
-              <ellipse cx="8" cy="10" rx="8" ry="14" fill="rgba(59, 130, 246, 0.4)" stroke="rgba(59, 130, 246, 0.8)" strokeWidth="0.5" />
-              
-              {/* Lake Huron - Large center indentation */}
-              <ellipse cx="38" cy="38" rx="16" ry="22" fill="rgba(59, 130, 246, 0.4)" stroke="rgba(59, 130, 246, 0.8)" strokeWidth="0.5" />
-              
-              {/* Georgian Bay - Northeast extension from Lake Huron */}
-              <ellipse cx="44" cy="32" rx="9" ry="16" fill="rgba(59, 130, 246, 0.4)" stroke="rgba(59, 130, 246, 0.8)" strokeWidth="0.5" />
-              
-              {/* Lake Erie - Southern border */}
-              <ellipse cx="32" cy="70" rx="18" ry="8" fill="rgba(59, 130, 246, 0.4)" stroke="rgba(59, 130, 246, 0.8)" strokeWidth="0.5" />
-              
-              {/* Lake Ontario - Southeast */}
-              <ellipse cx="50" cy="60" rx="11" ry="8" fill="rgba(59, 130, 246, 0.4)" stroke="rgba(59, 130, 246, 0.8)" strokeWidth="0.5" />
+              <svg
+                viewBox="0 0 100 100"
+                className="w-full h-full"
+                style={{ minHeight: '800px' }}
+                preserveAspectRatio="xMidYMid meet"
+              >
 
-              {/* City markers */}
-              {cities.map((city, index) => {
-                const color = getColor(city.premium)
-                const isHovered = hoveredCity?.name === city.name
-                
-                return (
-                  <g key={index}>
-                    {/* Outer glow ring for hover */}
-                    {isHovered && (
+                {/* City markers */}
+                {cities.map((city, index) => {
+                  const color = getColor(city.premium)
+                  const isHovered = hoveredCity?.name === city.name
+                  
+                  return (
+                    <g key={index}>
+                      {/* Outer glow ring for hover */}
+                      {isHovered && (
+                        <circle
+                          cx={city.x}
+                          cy={city.y}
+                          r="3.5"
+                          fill="none"
+                          stroke={color}
+                          strokeWidth="0.3"
+                          opacity="0.6"
+                          style={{
+                            animation: 'pulse 2s infinite',
+                          }}
+                        />
+                      )}
+                      
+                      {/* City circle */}
                       <circle
                         cx={city.x}
                         cy={city.y}
-                        r="3.5"
-                        fill="none"
-                        stroke={color}
-                        strokeWidth="0.3"
-                        opacity="0.6"
+                        r={isHovered ? 2.8 : 2}
+                        fill={color}
+                        stroke="white"
+                        strokeWidth={isHovered ? 0.5 : 0.3}
                         style={{
-                          animation: 'pulse 2s infinite',
+                          filter: isHovered 
+                            ? `drop-shadow(0 0 10px ${color}) drop-shadow(0 0 5px rgba(255,255,255,0.8))` 
+                            : `drop-shadow(0 0 3px ${color})`,
+                          transition: 'all 0.3s ease',
+                          cursor: 'pointer',
                         }}
+                        onMouseEnter={() => setHoveredCity(city)}
+                        onMouseLeave={() => setHoveredCity(null)}
                       />
-                    )}
-                    
-                    {/* City circle */}
-                    <circle
-                      cx={city.x}
-                      cy={city.y}
-                      r={isHovered ? 2.8 : 2}
-                      fill={color}
-                      stroke="white"
-                      strokeWidth={isHovered ? 0.5 : 0.3}
-                      style={{
-                        filter: isHovered 
-                          ? `drop-shadow(0 0 10px ${color}) drop-shadow(0 0 5px rgba(255,255,255,0.8))` 
-                          : `drop-shadow(0 0 3px ${color})`,
-                        transition: 'all 0.3s ease',
-                        cursor: 'pointer',
-                      }}
-                      onMouseEnter={() => setHoveredCity(city)}
-                      onMouseLeave={() => setHoveredCity(null)}
-                    />
-                    
-                    {/* City name label (always visible, smaller) */}
-                    <text
-                      x={city.x}
-                      y={city.y - 3.5}
-                      fill="rgba(255, 255, 255, 0.7)"
-                      fontSize="1.8"
-                      textAnchor="middle"
-                      fontWeight="500"
-                      style={{
-                        pointerEvents: 'none',
-                        textShadow: '0 1px 2px rgba(0,0,0,0.8)',
-                      }}
-                    >
-                      {city.name.length > 10 ? city.name.substring(0, 10) + '...' : city.name}
-                    </text>
-                  </g>
-                )
-              })}
-              
-              {/* Add CSS animation for pulse */}
-              <style>{`
-                @keyframes pulse {
-                  0%, 100% { opacity: 0.6; transform: scale(1); }
-                  50% { opacity: 1; transform: scale(1.2); }
-                }
-              `}</style>
-            </svg>
+                      
+                      {/* City name label (always visible, smaller) */}
+                      <text
+                        x={city.x}
+                        y={city.y - 3.5}
+                        fill="rgba(255, 255, 255, 0.7)"
+                        fontSize="1.8"
+                        textAnchor="middle"
+                        fontWeight="500"
+                        style={{
+                          pointerEvents: 'none',
+                          textShadow: '0 1px 2px rgba(0,0,0,0.8)',
+                        }}
+                      >
+                        {city.name.length > 10 ? city.name.substring(0, 10) + '...' : city.name}
+                      </text>
+                    </g>
+                  )
+                })}
+                
+                {/* Add CSS animation for pulse */}
+                <style>{`
+                  @keyframes pulse {
+                    0%, 100% { opacity: 0.6; transform: scale(1); }
+                    50% { opacity: 1; transform: scale(1.2); }
+                  }
+                `}</style>
+              </svg>
+            </div>
+          </div>
 
-            {/* Hover Info Panel */}
-            {hoveredCity && (
-              <div
-                className="absolute bg-slate-900/95 backdrop-blur-md border-2 border-purple-500/50 rounded-xl p-6 shadow-2xl"
-                style={{
-                  top: `${(hoveredCity.y / 100) * 800}px`,
-                  left: `${(hoveredCity.x / 100) * 100}%`,
-                  transform: 'translate(-50%, -100%)',
-                  marginTop: '-20px',
-                  minWidth: '280px',
-                  zIndex: 1000,
-                }}
-              >
+          {/* Hover Info Panel */}
+          {hoveredCity && (
+            <div
+              className="absolute bg-slate-900/95 backdrop-blur-md border-2 border-purple-500/50 rounded-xl p-6 shadow-2xl"
+              style={{
+                top: '20px',
+                right: '20px',
+                minWidth: '280px',
+                zIndex: 1000,
+              }}
+            >
                 <div className="flex items-center gap-3 mb-3">
                   <span className="text-3xl">📍</span>
                   <div>
