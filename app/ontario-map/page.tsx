@@ -153,7 +153,7 @@ export default function OntarioMapPage() {
             </a>
           </p>
           <p className="text-purple-300 text-sm mt-2">
-            Last updated: {lastUpdated}
+            Most recent deployment: {lastUpdated}
           </p>
         </div>
 

@@ -454,7 +454,7 @@ export default function InsuraMapPage() {
             Home Insurance Premiums & Climate Risk Analysis
           </p>
           <p className="text-purple-300 text-sm mb-4">
-            Last updated: {lastUpdated}
+            Most recent deployment: {lastUpdated}
           </p>
           <button
             onClick={() => setShowInfo(!showInfo)}
