@@ -38,6 +38,7 @@ interface CityData {
 import DeploymentTimestamp from '@/components/DeploymentTimestamp'
 
 export default function OntarioMapPage() {
+  const [productsMenuOpen, setProductsMenuOpen] = useState(false)
   const [hoveredCity, setHoveredCity] = useState<CityData | null>(null)
 
   // Premium data from rates.ca (2025 data in CAD per year)
@@ -103,9 +104,57 @@ export default function OntarioMapPage() {
               <span className="text-3xl">🚀</span>
               <h1 className="text-2xl font-bold text-purple-400">RateRocket</h1>
             </Link>
-            <Link href="/mortgage" className="text-purple-200 hover:text-purple-400">Mortgage</Link>
-            <Link href="/insuramap" className="text-purple-200 hover:text-purple-400">Home Map</Link>
-            <Link href="/" className="text-purple-200 hover:text-purple-400">Home</Link>
+            <div className="hidden md:flex items-center space-x-6">
+              <Link href="/" className="text-purple-200 hover:text-purple-400 transition">Home</Link>
+              
+              {/* Products Dropdown */}
+              <div 
+                className="relative group"
+                onMouseEnter={() => setProductsMenuOpen(true)}
+                onMouseLeave={() => setProductsMenuOpen(false)}
+              >
+                <button className="text-purple-200 hover:text-purple-400 transition flex items-center gap-1 py-2">
+                  Products
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+                {productsMenuOpen && (
+                  <div className="absolute top-full left-0 mt-1 w-56 bg-slate-900/95 backdrop-blur-md border border-purple-500/30 rounded-lg shadow-xl py-2 z-50">
+                    <Link 
+                      href="/mortgage" 
+                      onClick={() => setProductsMenuOpen(false)}
+                      className="block px-5 py-3 text-purple-200 hover:bg-purple-500/20 hover:text-purple-400 transition cursor-pointer"
+                    >
+                      🏠 Mortgage
+                    </Link>
+                    <Link 
+                      href="/credit-card" 
+                      onClick={() => setProductsMenuOpen(false)}
+                      className="block px-5 py-3 text-purple-200 hover:bg-purple-500/20 hover:text-purple-400 transition cursor-pointer"
+                    >
+                      💳 Credit Card
+                    </Link>
+                    <Link 
+                      href="/ontario-map" 
+                      onClick={() => setProductsMenuOpen(false)}
+                      className="block px-5 py-3 text-purple-200 hover:bg-purple-500/20 hover:text-purple-400 transition cursor-pointer"
+                    >
+                      🗺️ Auto Map
+                    </Link>
+                    <Link 
+                      href="/insuramap" 
+                      onClick={() => setProductsMenuOpen(false)}
+                      className="block px-5 py-3 text-purple-200 hover:bg-purple-500/20 hover:text-purple-400 transition cursor-pointer"
+                    >
+                      🏠 InsuraMap 2.0
+                    </Link>
+                  </div>
+                )}
+              </div>
+
+              <Link href="/account" className="text-purple-200 hover:text-purple-400 transition">My Account</Link>
+            </div>
           </div>
         </div>
       </nav>
