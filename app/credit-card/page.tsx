@@ -3,9 +3,6 @@
 import { useState } from 'react'
 import Link from 'next/link'
 
-export default function CreditCardPage() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-
 interface CreditCard {
   name: string
   bank: string
@@ -20,6 +17,8 @@ interface CreditCard {
   color: string
 }
 
+export default function CreditCardPage() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [currentStep, setCurrentStep] = useState(0)
   const [answers, setAnswers] = useState<Record<number, string>>({})
   const [showResults, setShowResults] = useState(false)
