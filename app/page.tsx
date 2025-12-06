@@ -400,7 +400,7 @@ export default function Home() {
               <span>🌌</span> &copy; 2025 RateRocket. All rights reserved. <span>🚀</span>
             </p>
             <p className="text-purple-400 text-sm">
-              coded by ravicharavi <3
+              vibe coded by @ravicharavi 🤍
             </p>
           </div>
         </div>
