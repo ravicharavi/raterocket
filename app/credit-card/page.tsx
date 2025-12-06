@@ -3,6 +3,9 @@
 import { useState } from 'react'
 import Link from 'next/link'
 
+export default function CreditCardPage() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+
 interface CreditCard {
   name: string
   bank: string
@@ -17,7 +20,6 @@ interface CreditCard {
   color: string
 }
 
-export default function CreditCardPage() {
   const [currentStep, setCurrentStep] = useState(0)
   const [answers, setAnswers] = useState<Record<number, string>>({})
   const [showResults, setShowResults] = useState(false)
@@ -269,11 +271,49 @@ export default function CreditCardPage() {
                 RateRocket
               </h1>
             </Link>
+            {/* Desktop Menu */}
             <div className="hidden md:flex space-x-8">
               <Link href="/" className="text-purple-200 hover:text-purple-400 transition">Home</Link>
               <Link href="/account" className="text-purple-200 hover:text-purple-400 transition">My Account</Link>
             </div>
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="md:hidden text-purple-200 hover:text-purple-400 p-2"
+              aria-label="Toggle menu"
+            >
+              {mobileMenuOpen ? (
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              ) : (
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+              )}
+            </button>
           </div>
+          {/* Mobile Menu */}
+          {mobileMenuOpen && (
+            <div className="md:hidden border-t border-purple-500/20 py-4">
+              <div className="flex flex-col space-y-3">
+                <Link 
+                  href="/" 
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="text-purple-200 hover:text-purple-400 transition px-4 py-2"
+                >
+                  Home
+                </Link>
+                <Link 
+                  href="/account" 
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="text-purple-200 hover:text-purple-400 transition px-4 py-2"
+                >
+                  My Account
+                </Link>
+              </div>
+            </div>
+          )}
         </div>
       </nav>
 

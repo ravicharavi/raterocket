@@ -8,6 +8,7 @@ export default function AccountPage() {
   const router = useRouter()
   const [user, setUser] = useState<any>(null)
   const [loading, setLoading] = useState(true)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   useEffect(() => {
     // Check if user is logged in
@@ -47,7 +48,8 @@ export default function AccountPage() {
                 RateRocket
               </h1>
             </Link>
-            <div className="flex gap-4">
+            {/* Desktop Menu */}
+            <div className="hidden md:flex gap-4">
               <Link href="/" className="text-purple-200 hover:text-purple-400 transition">Home</Link>
               <button
                 onClick={handleLogout}
@@ -56,7 +58,46 @@ export default function AccountPage() {
                 Logout
               </button>
             </div>
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="md:hidden text-purple-200 hover:text-purple-400 p-2"
+              aria-label="Toggle menu"
+            >
+              {mobileMenuOpen ? (
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              ) : (
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+              )}
+            </button>
           </div>
+          {/* Mobile Menu */}
+          {mobileMenuOpen && (
+            <div className="md:hidden border-t border-purple-500/20 py-4">
+              <div className="flex flex-col space-y-3">
+                <Link 
+                  href="/" 
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="text-purple-200 hover:text-purple-400 transition px-4 py-2"
+                >
+                  Home
+                </Link>
+                <button
+                  onClick={() => {
+                    handleLogout()
+                    setMobileMenuOpen(false)
+                  }}
+                  className="text-left text-purple-200 hover:text-purple-400 transition px-4 py-2"
+                >
+                  Logout
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       </nav>
 
