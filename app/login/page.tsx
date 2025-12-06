@@ -3,7 +3,6 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import DeploymentTimestamp from '@/components/DeploymentTimestamp'
 
 export default function LoginPage() {
   const router = useRouter()
@@ -17,23 +16,22 @@ export default function LoginPage() {
     setError('')
     setLoading(true)
 
-    // Simple authentication check (in production, this would be an API call)
-    const users = JSON.parse(localStorage.getItem('users') || '[]')
-    const user = users.find((u: any) => u.email === email && u.password === password)
-
-    if (user) {
-      // Store logged in user
-      localStorage.setItem('currentUser', JSON.stringify({
-        id: user.id,
-        email: user.email,
-        name: user.name
-      }))
-      sessionStorage.setItem('isLoggedIn', 'true')
-      router.push('/account')
-    } else {
-      setError('Invalid email or password')
-      setLoading(false)
+    // Prototype: Allow login without credentials - just click to login
+    // Create or use default user
+    const defaultUser = {
+      id: '1',
+      email: email || 'user@raterocket.com',
+      name: 'John Doe'
     }
+
+    // Store logged in user
+    localStorage.setItem('currentUser', JSON.stringify(defaultUser))
+    sessionStorage.setItem('isLoggedIn', 'true')
+    
+    // Small delay for UX
+    setTimeout(() => {
+      router.push('/account')
+    }, 300)
   }
 
   return (
@@ -59,7 +57,6 @@ export default function LoginPage() {
           <p className="text-purple-200 mb-4">
             Access your saved quotes and manage your insurance
           </p>
-          <DeploymentTimestamp />
         </div>
 
         <div className="bg-slate-800 rounded-xl p-8 border-2 border-purple-500/30">
@@ -72,28 +69,26 @@ export default function LoginPage() {
 
             <div>
               <label className="block text-purple-200 text-sm font-semibold mb-2">
-                Email Address
+                Email Address <span className="text-purple-400 text-xs">(Optional)</span>
               </label>
               <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                required
-                placeholder="your@email.com"
+                placeholder="your@email.com (optional)"
                 className="w-full bg-slate-700 border border-purple-500/30 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-purple-500"
               />
             </div>
 
             <div>
               <label className="block text-purple-200 text-sm font-semibold mb-2">
-                Password
+                Password <span className="text-purple-400 text-xs">(Optional)</span>
               </label>
               <input
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                required
-                placeholder="Enter your password"
+                placeholder="Enter your password (optional)"
                 className="w-full bg-slate-700 border border-purple-500/30 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-purple-500"
               />
             </div>
