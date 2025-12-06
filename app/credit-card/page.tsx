@@ -27,7 +27,7 @@ export default function CreditCardPage() {
   const questions = [
     {
       id: 1,
-      question: "What's your primary spending category? 💳",
+      question: "What&apos;s your primary spending category? 💳",
       options: [
         { value: 'travel', label: '✈️ Travel & Vacations', emoji: '✈️' },
         { value: 'groceries', label: '🛒 Groceries & Daily Needs', emoji: '🛒' },
@@ -58,7 +58,7 @@ export default function CreditCardPage() {
     },
     {
       id: 4,
-      question: "What's your credit score range? 📊",
+      question: "What&apos;s your credit score range? 📊",
       options: [
         { value: 'excellent', label: '750+ (Excellent)', emoji: '🌟' },
         { value: 'good', label: '700-749 (Good)', emoji: '👍' },
