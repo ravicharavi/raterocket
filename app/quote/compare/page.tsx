@@ -25,6 +25,8 @@ export default function CompareQuotesPage() {
   const [quotes, setQuotes] = useState<Quote[]>([])
   const [loading, setLoading] = useState(true)
   const [selectedQuote, setSelectedQuote] = useState<string | null>(null)
+  const [quoteToSave, setQuoteToSave] = useState<Quote | null>(null)
+  const [showSaveModal, setShowSaveModal] = useState(false)
 
   useEffect(() => {
     // Check if required data exists
