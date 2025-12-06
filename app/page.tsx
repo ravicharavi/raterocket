@@ -351,7 +351,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Footer */}
+      {/* Footer - Updated 2025 */}
       <footer className="bg-slate-950/90 backdrop-blur-md border-t border-purple-500/20 text-white py-12 relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mb-6 text-center">
