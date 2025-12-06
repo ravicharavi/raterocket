@@ -5,6 +5,7 @@ import { useState } from 'react'
 
 export default function Home() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [productsMenuOpen, setProductsMenuOpen] = useState(false)
 
   return (
     <div className="min-h-screen space-bg relative">
@@ -24,13 +25,52 @@ export default function Home() {
               </h1>
             </div>
             {/* Desktop Menu */}
-            <div className="hidden md:flex space-x-8">
+            <div className="hidden md:flex items-center space-x-6">
               <a href="#how-it-works" className="text-purple-200 hover:text-purple-400 transition">How It Works</a>
               <a href="#benefits" className="text-purple-200 hover:text-purple-400 transition">Benefits</a>
-              <Link href="/mortgage" className="text-purple-200 hover:text-purple-400 transition">Mortgage</Link>
-              <Link href="/credit-card" className="text-purple-200 hover:text-purple-400 transition">Credit Card</Link>
-              <Link href="/ontario-map" className="text-purple-200 hover:text-purple-400 transition">Auto Map</Link>
-              <Link href="/insuramap" className="text-purple-200 hover:text-purple-400 transition">InsuraMap 2.0</Link>
+              
+              {/* Products Dropdown */}
+              <div 
+                className="relative"
+                onMouseEnter={() => setProductsMenuOpen(true)}
+                onMouseLeave={() => setProductsMenuOpen(false)}
+              >
+                <button className="text-purple-200 hover:text-purple-400 transition flex items-center gap-1">
+                  Products
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+                {productsMenuOpen && (
+                  <div className="absolute top-full left-0 mt-2 w-48 bg-slate-900/95 backdrop-blur-md border border-purple-500/30 rounded-lg shadow-xl py-2 z-50">
+                    <Link 
+                      href="/mortgage" 
+                      className="block px-4 py-2 text-purple-200 hover:bg-purple-500/20 hover:text-purple-400 transition"
+                    >
+                      🏠 Mortgage
+                    </Link>
+                    <Link 
+                      href="/credit-card" 
+                      className="block px-4 py-2 text-purple-200 hover:bg-purple-500/20 hover:text-purple-400 transition"
+                    >
+                      💳 Credit Card
+                    </Link>
+                    <Link 
+                      href="/ontario-map" 
+                      className="block px-4 py-2 text-purple-200 hover:bg-purple-500/20 hover:text-purple-400 transition"
+                    >
+                      🗺️ Auto Map
+                    </Link>
+                    <Link 
+                      href="/insuramap" 
+                      className="block px-4 py-2 text-purple-200 hover:bg-purple-500/20 hover:text-purple-400 transition"
+                    >
+                      🏠 InsuraMap 2.0
+                    </Link>
+                  </div>
+                )}
+              </div>
+
               <Link href="/account" className="text-purple-200 hover:text-purple-400 transition">My Account</Link>
               <a href="#faq" className="text-purple-200 hover:text-purple-400 transition">FAQ</a>
             </div>
