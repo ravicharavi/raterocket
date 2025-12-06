@@ -166,7 +166,7 @@ export default function Home() {
 
                 {/* Credit Card */}
                 <Link 
-                  href="/quote/personal-info?type=credit-card"
+                  href="/credit-card"
                   className="group bg-slate-800/60 border border-purple-500/30 rounded-lg p-4 hover:border-purple-400 hover:bg-slate-800/80 transition-all duration-300 backdrop-blur-sm text-center"
                 >
                   <div className="text-3xl mb-2">💳</div>
