@@ -2,7 +2,6 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import DeploymentTimestamp from '@/components/DeploymentTimestamp'
 
 export default function MortgagePage() {
   const [income, setIncome] = useState<string>('')
@@ -122,7 +121,6 @@ export default function MortgagePage() {
           <p className="text-xl text-purple-200 mb-4">
             Find out how much you can get approved for from various lenders
           </p>
-          <DeploymentTimestamp className="text-purple-300 text-sm" />
         </div>
 
         <div className="max-w-4xl mx-auto">
