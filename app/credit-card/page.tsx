@@ -326,7 +326,7 @@ export default function CreditCardPage() {
                 Find Your Perfect Credit Card
               </h1>
               <p className="text-xl text-purple-200 mb-6">
-                Answer a few quick questions and we'll match you with the best cards!
+                Answer a few quick questions and we&apos;ll match you with the best cards!
               </p>
               <div className="flex justify-center gap-2 mb-8">
                 {questions.map((_, index) => (
@@ -471,7 +471,7 @@ export default function CreditCardPage() {
               <p className="text-yellow-200 text-sm">
                 <strong>💡 Tip:</strong> These recommendations are based on your quiz answers. 
                 Always review the full terms and conditions before applying. 
-                Credit card approval is subject to the issuer's criteria.
+                Credit card approval is subject to the issuer&apos;s criteria.
               </p>
             </div>
           </>
