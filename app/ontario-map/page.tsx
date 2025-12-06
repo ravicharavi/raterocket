@@ -103,7 +103,6 @@ export default function OntarioMapPage() {
               <span className="text-3xl">🚀</span>
               <h1 className="text-2xl font-bold text-purple-400">RateRocket</h1>
             </Link>
-            <Link href="/mortgage" className="text-purple-200 hover:text-purple-400">Mortgage</Link>
             <Link href="/insuramap" className="text-purple-200 hover:text-purple-400">Home Map</Link>
             <Link href="/" className="text-purple-200 hover:text-purple-400">Home</Link>
           </div>
