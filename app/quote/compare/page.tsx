@@ -134,6 +134,7 @@ export default function CompareQuotesPage() {
       return
     }
 
+    // Set quote to save and show modal
     setQuoteToSave(quote)
     setShowSaveModal(true)
   }
