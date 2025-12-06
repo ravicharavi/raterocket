@@ -278,6 +278,55 @@ export default function OntarioMapPage() {
           </div>
         </div>
       </div>
+
+      {/* Footer */}
+      <footer className="bg-slate-950/90 backdrop-blur-md border-t border-purple-500/20 text-white py-12 relative z-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div>
+              <div className="flex items-center gap-2 mb-4">
+                <span className="text-3xl rocket-glow">🚀</span>
+                <h3 className="text-2xl font-bold bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent">
+                  RateRocket
+                </h3>
+              </div>
+              <p className="text-purple-300">Your trusted insurance comparison platform in Canada. 🪐</p>
+            </div>
+            <div>
+              <h4 className="font-semibold mb-4">Company</h4>
+              <ul className="space-y-2 text-purple-300">
+                <li><a href="#" className="hover:text-purple-200 transition flex items-center gap-2"><span>🛸</span> About Us</a></li>
+                <li><a href="#" className="hover:text-purple-200 transition flex items-center gap-2"><span>📡</span> Contact</a></li>
+                <li><a href="#" className="hover:text-purple-200 transition flex items-center gap-2"><span>🔒</span> Privacy Policy</a></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-semibold mb-4">Resources</h4>
+              <ul className="space-y-2 text-purple-300">
+                <li><a href="#" className="hover:text-purple-200 transition flex items-center gap-2"><span>📚</span> Insurance Guide</a></li>
+                <li><a href="#" className="hover:text-purple-200 transition flex items-center gap-2"><span>❓</span> FAQ</a></li>
+                <li><a href="#" className="hover:text-purple-200 transition flex items-center gap-2"><span>📝</span> Blog</a></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-semibold mb-4">Legal</h4>
+              <ul className="space-y-2 text-purple-300">
+                <li><a href="#" className="hover:text-purple-200 transition flex items-center gap-2"><span>📜</span> Terms of Service</a></li>
+                <li><a href="#" className="hover:text-purple-200 transition flex items-center gap-2"><span>🔐</span> Privacy Policy</a></li>
+                <li><a href="#" className="hover:text-purple-200 transition flex items-center gap-2"><span>⚠️</span> Disclaimer</a></li>
+              </ul>
+            </div>
+          </div>
+          <div className="mt-8 pt-8 border-t border-purple-500/20 text-center">
+            <p className="text-purple-300 flex items-center justify-center gap-2 mb-2">
+              <span>🌌</span> &copy; 2025 RateRocket. All rights reserved. <span>🚀</span>
+            </p>
+            <p className="text-purple-400 text-sm">
+              vibe coded by @ravicharavi 🤍
+            </p>
+          </div>
+        </div>
+      </footer>
     </div>
   )
 }
