@@ -28,6 +28,7 @@ export default function Home() {
               <a href="#how-it-works" className="text-purple-200 hover:text-purple-400 transition">How It Works</a>
               <a href="#benefits" className="text-purple-200 hover:text-purple-400 transition">Benefits</a>
               <Link href="/mortgage" className="text-purple-200 hover:text-purple-400 transition">Mortgage</Link>
+              <Link href="/credit-card" className="text-purple-200 hover:text-purple-400 transition">Credit Card</Link>
               <Link href="/ontario-map" className="text-purple-200 hover:text-purple-400 transition">Auto Map</Link>
               <Link href="/insuramap" className="text-purple-200 hover:text-purple-400 transition">InsuraMap 2.0</Link>
               <Link href="/account" className="text-purple-200 hover:text-purple-400 transition">My Account</Link>
@@ -74,6 +75,13 @@ export default function Home() {
                   className="text-purple-200 hover:text-purple-400 transition px-4 py-2"
                 >
                   Mortgage
+                </Link>
+                <Link 
+                  href="/credit-card" 
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="text-purple-200 hover:text-purple-400 transition px-4 py-2"
+                >
+                  Credit Card
                 </Link>
                 <Link 
                   href="/ontario-map" 
