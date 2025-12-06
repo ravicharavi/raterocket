@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import DeploymentTimestamp from '@/components/DeploymentTimestamp'
 
 export default function Home() {
   return (
@@ -354,9 +353,6 @@ export default function Home() {
       {/* Footer - Updated 2025 */}
       <footer className="bg-slate-950/90 backdrop-blur-md border-t border-purple-500/20 text-white py-12 relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mb-6 text-center">
-            <DeploymentTimestamp className="text-purple-300 text-sm" />
-          </div>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div>
               <div className="flex items-center gap-2 mb-4">
@@ -393,9 +389,6 @@ export default function Home() {
             </div>
           </div>
           <div className="mt-8 pt-8 border-t border-purple-500/20 text-center">
-            <div className="mb-4">
-              <DeploymentTimestamp className="text-purple-300 text-sm" />
-            </div>
             <p className="text-purple-300 flex items-center justify-center gap-2 mb-2">
               <span>🌌</span> &copy; 2025 RateRocket. All rights reserved. <span>🚀</span>
             </p>
