@@ -22,6 +22,7 @@ export default function Home() {
             <div className="hidden md:flex space-x-8">
               <a href="#how-it-works" className="text-purple-200 hover:text-purple-400 transition">How It Works</a>
               <a href="#benefits" className="text-purple-200 hover:text-purple-400 transition">Benefits</a>
+              <Link href="/mortgage" className="text-purple-200 hover:text-purple-400 transition">Mortgage</Link>
               <Link href="/ontario-map" className="text-purple-200 hover:text-purple-400 transition">Auto Map</Link>
               <Link href="/insuramap" className="text-purple-200 hover:text-purple-400 transition">InsuraMap 2.0</Link>
               <Link href="/account" className="text-purple-200 hover:text-purple-400 transition">My Account</Link>
@@ -155,6 +156,14 @@ export default function Home() {
               
               <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
                 {/* Mortgage */}
+                <Link 
+                  href="/mortgage"
+                  className="group bg-slate-800/60 border border-purple-500/30 rounded-lg p-4 hover:border-purple-400 hover:bg-slate-800/80 transition-all duration-300 backdrop-blur-sm text-center"
+                >
+                  <div className="text-3xl mb-2">🏠</div>
+                  <h4 className="text-sm font-semibold text-white mb-1">Mortgage</h4>
+                  <p className="text-xs text-purple-300">Compare rates</p>
+                </Link>
 
                 {/* Credit Card */}
                 <Link 
